@@ -1,0 +1,45 @@
+{
+  "name": "plan-manager",
+  "version": "0.1.0",
+  "description": "A tool for successfully guiding a plan's fiduciary in managing the retirement plan, recording information produced in the process, and providing intuitive access to the information.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node boot.js",
+    "build": "browserify -t reactify client/js/app.jsx -o client/build/bundle.js && browserify -t reactify client/js/app.anonymous.jsx -o client/build/bundle.anonymous.js && node client/tasks/minifycss.js",
+    "build-anonymous": "browserify -t reactify client/js/app.anonymous.jsx -o client/build/bundle.anonymous.js",
+    "build-authorized": "browserify -t reactify client/js/app.jsx -o client/build/bundle.js"
+  },
+  "author": "Zach Allen",
+  "license": "ISC",
+  "browserify": {
+    "transform": [
+      "reactify"
+    ]
+  },
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "es6-promise": "^3.0.2",
+    "express": "^4.13.3",
+    "flux": "^2.1.1",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "events": "^1.1.0",
+    "gulp-minify-css": "^1.2.3",
+    "browserify": "^12.0.2",
+    "gulp-rename": "^1.2.2",
+    "browserify-css": "^0.8.4",
+    "gulp-concat": "^2.6.0",
+    "keymirror": "^0.1.1",
+    "http": "^0.0.0",
+    "object-assign": "^4.0.1",
+    "path": "^0.12.7",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.6",
+    "react-router": "^2.0.0-rc5",
+    "jquery": "^2.2.0",
+    "reactify": "^1.1.1",
+    "history": "^2.0.0-rc2",
+    "moment": "^2.11.1"
+  },
+  "devDependencies": {}
+}

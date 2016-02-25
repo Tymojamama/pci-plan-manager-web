@@ -11,7 +11,7 @@ module.exports = function (app) {
 			maxAge: 365 * 24 * 60 * 60 * 1000, // one year
 		},
 	    store: new MongoStore({
-	        url: 'mongodb://localhost/session'
+	        url: 'mongodb://172.31.20.165/session'
 	    }),
 	}));
 }

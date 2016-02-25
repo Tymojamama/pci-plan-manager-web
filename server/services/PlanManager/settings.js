@@ -1,4 +1,4 @@
 module.exports = {
-	host: "localhost",
-	port: 1337,
+	host: "ec2-52-37-104-20.us-west-2.compute.amazonaws.com",
+	port: 80,
 }

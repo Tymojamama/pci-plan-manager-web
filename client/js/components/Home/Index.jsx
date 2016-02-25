@@ -29,7 +29,6 @@ var HomePage = React.createClass({
                         <div className="col-lg-3 col-md-3 hidden-sm hidden-xs">
                             <Navigation />
                         </div>
-                        <MobileMenu />
                         <div className="row-fluid">
                             <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12" style={{padding:"0",margin:"0"}}>
                                 <div className="col-lg-8 col-md-8">

@@ -87,6 +87,7 @@ var Header = React.createClass({
             	<div id="header-navigation-notifications-panel" className="header-navigation" style={{backgroundColor:"transparent",display:"none",top:"55px"}} >
 					<Notifications handleClose={this.handleClickNotification} />
             	</div>
+				<MobileMenu />
             </div>
 		);
 	},

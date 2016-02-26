@@ -10,7 +10,7 @@ var Navigation = React.createClass({
     render: function(){
         return (
             <div>
-                <LinkItem label="🏠 You are home." link="/" backgroundColor="#da383c" backgroundColorHover="#c22426" />
+                <LinkItem label="🏠 You are home" link="/" backgroundColor="#da383c" backgroundColorHover="#c22426" />
                 <Spacer />
 
                 <Header label="📡 Oversight" />

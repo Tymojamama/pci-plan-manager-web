@@ -28,6 +28,14 @@ var Header = React.createClass({
 	componentDidMount: function () {
         UserStore.addChangeListener(this._onChange);
 
+		if ('ontouchstart' in window) {
+		    $(document).on('focus', 'textarea,input,select', function() {
+		        $('.header-navigation').css('position', 'absolute');
+		    }).on('blur', 'textarea,input,select', function() {
+		        $('.header-navigation').css('position', '');
+		    });
+		}
+
 		$("#header-navigation-notifications-panel").hide();
 		$("#header-navigation-settings-panel").hide();
 		$("#header-navigation-settings-button-down").show();

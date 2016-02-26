@@ -8,6 +8,7 @@ var UserStore = require('../../stores/UserStore');
 var Style = require('./Style.jsx');
 var Item = require('./Item.jsx');
 var SubItem = require('./SubItem.jsx');
+var MobileMenu = require('../MobileMenu/Index.jsx');
 
 var Header = React.createClass({
 	getInitialState: function () {

@@ -2186,6 +2186,7 @@ var UserStore = require('../../stores/UserStore');
 var Style = require('./Style.jsx');
 var Item = require('./Item.jsx');
 var SubItem = require('./SubItem.jsx');
+var MobileMenu = require('../MobileMenu/Index.jsx');
 
 var Header = React.createClass({displayName: "Header",
 	getInitialState: function () {
@@ -2327,7 +2328,7 @@ var Header = React.createClass({displayName: "Header",
 
 module.exports = Header;
 
-},{"../../stores/UserStore":122,"../Notifications/Index.jsx":60,"./Item.jsx":41,"./Style.jsx":42,"./SubItem.jsx":43,"jquery":167,"react":371,"react-router":207}],41:[function(require,module,exports){
+},{"../../stores/UserStore":122,"../MobileMenu/Index.jsx":51,"../Notifications/Index.jsx":60,"./Item.jsx":41,"./Style.jsx":42,"./SubItem.jsx":43,"jquery":167,"react":371,"react-router":207}],41:[function(require,module,exports){
 var React = require('react');
 var $ = require('jquery');
 var Link = require('react-router').Link;
@@ -2620,7 +2621,6 @@ var ComplianceCalendar = require('../ComplianceCalendar/Index.jsx');
 var Dashboard = require('../Dashboard/Index.jsx');
 var Feed = require('../Feed/Index.jsx');
 var Navigation = require('./Navigation.jsx');
-var MobileMenu = require('../MobileMenu/Index.jsx');
 var IndustryUpdates = require('../IndustryUpdates/Index.jsx');
 var ComplianceCalendar = require('../ComplianceCalendar/Index.jsx');
 
@@ -2661,7 +2661,7 @@ var HomePage = React.createClass({displayName: "HomePage",
 
 module.exports = HomePage;
 
-},{"../Actions/Index.jsx":10,"../ComplianceCalendar/Index.jsx":16,"../Dashboard/Index.jsx":18,"../Feed/Index.jsx":23,"../IndustryUpdates/Index.jsx":47,"../MobileMenu/Index.jsx":51,"./Navigation.jsx":45,"./Style.jsx":46,"react":371}],45:[function(require,module,exports){
+},{"../Actions/Index.jsx":10,"../ComplianceCalendar/Index.jsx":16,"../Dashboard/Index.jsx":18,"../Feed/Index.jsx":23,"../IndustryUpdates/Index.jsx":47,"./Navigation.jsx":45,"./Style.jsx":46,"react":371}],45:[function(require,module,exports){
 var React = require('react');
 
 var PlanSearch = require('../Plan/Search.jsx');

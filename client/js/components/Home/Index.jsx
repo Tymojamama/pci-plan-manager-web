@@ -7,7 +7,6 @@ var ComplianceCalendar = require('../ComplianceCalendar/Index.jsx');
 var Dashboard = require('../Dashboard/Index.jsx');
 var Feed = require('../Feed/Index.jsx');
 var Navigation = require('./Navigation.jsx');
-var MobileMenu = require('../MobileMenu/Index.jsx');
 var IndustryUpdates = require('../IndustryUpdates/Index.jsx');
 var ComplianceCalendar = require('../ComplianceCalendar/Index.jsx');
 

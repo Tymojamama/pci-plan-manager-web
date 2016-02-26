@@ -49,7 +49,9 @@ var App = React.createClass({
 		return (
 			<div>
                 <Header />
-				{this.props.children}
+                <div style={{WebKitOverflowScrolling: "touch"}}>
+				    {this.props.children}
+                </div>
 				<Footer />
 			</div>
 		)

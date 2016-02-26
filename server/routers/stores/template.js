@@ -1,6 +1,5 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var filter = require('json-schema-filter');
 
 var planManagerService = require('../../services/PlanManager');
 

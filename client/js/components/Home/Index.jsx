@@ -4,7 +4,6 @@ var Style = require('./Style.jsx');
 
 var Actions = require('../Actions/Index.jsx');
 var ComplianceCalendar = require('../ComplianceCalendar/Index.jsx');
-var Dashboard = require('../Dashboard/Index.jsx');
 var Feed = require('../Feed/Index.jsx');
 var Navigation = require('./Navigation.jsx');
 var IndustryUpdates = require('../IndustryUpdates/Index.jsx');
@@ -20,7 +19,7 @@ var HomePage = React.createClass({
             <div style={Style.headerPadding}>
                 <div id="home-dashboard" className="row-fluid" style={{display:"none"}}>
                     <div className="col-lg-8 col-md-12 col-sm-12 col-xs-12 col-centered">
-                        <Dashboard />
+
                     </div>
                 </div>
                 <div className="row-fluid">

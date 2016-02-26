@@ -17,29 +17,30 @@
     ]
   },
   "dependencies": {
-    "body-parser": "^1.14.2",
-    "es6-promise": "^3.0.2",
-    "express": "^4.13.3",
-    "flux": "^2.1.1",
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^3.1.0",
+    "body-parser": "^1.15.0",
+    "connect-mongo": "^1.1.0",
+    "cookie-parser": "^1.4.1",
     "events": "^1.1.0",
-    "gulp-minify-css": "^1.2.3",
-    "browserify": "^12.0.2",
-    "gulp-rename": "^1.2.2",
-    "browserify-css": "^0.8.4",
-    "gulp-concat": "^2.6.0",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "flux": "^2.1.1",
+    "history": "^2.0.0",
+    "jquery": "^2.2.1",
     "keymirror": "^0.1.1",
-    "http": "^0.0.0",
+    "moment": "^2.11.2",
     "object-assign": "^4.0.1",
-    "path": "^0.12.7",
-    "react": "^0.14.6",
-    "react-dom": "^0.14.6",
-    "react-router": "^2.0.0-rc5",
-    "jquery": "^2.2.0",
-    "reactify": "^1.1.1",
-    "history": "^2.0.0-rc2",
-    "moment": "^2.11.1"
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-router": "^2.0.0",
+    "string": "^3.3.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "browserify": "^12.0.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "reactify": "^1.1.1"
+  }
 }

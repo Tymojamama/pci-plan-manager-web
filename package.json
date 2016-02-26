@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node boot.js",
-    "build": "browserify -t reactify client/js/app.jsx -o client/build/bundle.js && browserify -t reactify client/js/app.anonymous.jsx -o client/build/bundle.anonymous.js && node client/tasks/minifycss.js",
-    "build-anonymous": "browserify -t reactify client/js/app.anonymous.jsx -o client/build/bundle.anonymous.js",
-    "build-authorized": "browserify -t reactify client/js/app.jsx -o client/build/bundle.js"
+    "build": "browserify -t reactify client/js/app.anonymous.jsx -t envify --NODE_ENV development | uglifyjs --compress --mangle > client/build/bundle.anonymous.js && browserify -t reactify client/js/app.jsx -t envify --NODE_ENV development | uglifyjs --compress --mangle > client/build/bundle.js",
+    "build-anonymous": "browserify -t reactify client/js/app.anonymous.jsx -t envify --NODE_ENV development | uglifyjs --compress --mangle > client/build/bundle.anonymous.js",
+    "build-authorized": "browserify -t reactify client/js/app.jsx -t envify --NODE_ENV development | uglifyjs --compress --mangle > client/build/bundle.js"
   },
   "author": "Zach Allen",
   "license": "ISC",
@@ -41,6 +41,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-minify-css": "^1.2.4",
     "gulp-rename": "^1.2.2",
-    "reactify": "^1.1.1"
+    "reactify": "^1.1.1",
+    "uglify-js": "^2.6.2"
   }
 }

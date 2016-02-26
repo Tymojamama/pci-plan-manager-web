@@ -42,7 +42,7 @@ var Header = React.createClass({
                         <Item to="/register" label="Sign up" selectedStyle={Style.signUpHover} defaultStyle={Style.signUp} />
                     </span>
 				</div>
-            	<div id="header-navigation-mobile-panel" className="header-navigation hidden-lg hidden-md" style={{backgroundColor:"#0e2e47",display:"none",boxShadow:"0px 5px 5px rgba(0,0,0,.5)"}}}>
+            	<div id="header-navigation-mobile-panel" className="header-navigation hidden-lg hidden-md" style={{backgroundColor:"#0e2e47",display:"none",boxShadow:"0px 5px 5px rgba(0,0,0,.5)"}}>
 					<div className="col-lg-8 col-md-12 col-sm-12 col-xs-12 col-centered">
 						<div className="hidden-sm" style={{width:"100%"}}>
 	                        <MenuSubItem to="/login" label="Sign in" handleClick={this.handleClickLink} fullWidth={true} />

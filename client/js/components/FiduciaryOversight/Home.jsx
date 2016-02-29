@@ -57,7 +57,7 @@ var Home = React.createClass({
 		};
 		return (
 			<div>
-                <div className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12" style={{padding:"0",margin:"0"}}>
 					<Link to={createTaskLinkOptions} replace={true}>
 						<div style={Style.newTaskButton} onClick={this.createTaskOnClick}>
 							+ Create Task
@@ -66,7 +66,7 @@ var Home = React.createClass({
 					{this.loadModalWindow()}
 					{this.loadTasks()}
 				</div>
-                <div className="col-lg-4 col-md-4 hidden-sm hidden-xs">
+                <div className="col-lg-3 col-md-3 hidden-sm hidden-xs" style={{paddingRight:"0",marginRight:"0"}}>
                 	<div style={{marginBottom:"10px",padding:"5px",backgroundColor:"#fff",border:"1px solid #ccc"}}>
                 		<div style={{color:"#0e2e47"}}><b>Investments</b></div>
                 		<div>Your investments have grown by 4.32% since Q4 2015.</div>

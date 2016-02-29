@@ -32,65 +32,63 @@ function getTaskType(_id, callback) {
 	});
 }
 
-function getDetails(task, callback) {
-	var detail = "";
-	var taskTypeCategoryWithArticle = "";
+function getState(task, callback) {
 
 	if (!task.taskTypeId) {
-
-		if (task.description) {
-			detail += task.description + " ";
-		}
-
-		if (detail == "") {
-			detail = "There is not a lot of information about this task. You should fill out more fields--like the date due."
-		}
-
-		return callback(detail);
+		return callback();
 	}
 
 	TaskTypeStore.getOne(task.taskTypeId, function (taskType) {
 
-		switch(taskType.taskCategoryId){
-			case "56bcb5351f3d76082bb8ef7f":
-				taskTypeCategoryWithArticle = "an investment";
-				break;
-			case "56bcb5511f3d76082bb8ef80":
-				taskTypeCategoryWithArticle = "a vendor";
-				break;
-			case "56bcb3a5777f0d4c1cb43982":
-				taskTypeCategoryWithArticle = "an administration";
-				break;
-			default:
-				taskTypeCategoryWithArticle = "";
-				break;
-		}
-
-		if (taskTypeCategoryWithArticle && taskTypeCategoryWithArticle != "") {
-			detail += "This is " + taskTypeCategoryWithArticle + " task.";
-		}
-
-		if (task.description) {
-			detail += task.description + " ";
-		}
+		var purpose = (
+			<div className="row-fluid"></div>
+		);
 
 		if (taskType.purpose) {
-			detail += taskType.purpose + " ";
+			purpose = (
+				<div className="row-fluid">
+					<div className="col-lg-2 col-md-3 col-sm-12 col-xs-12"><b>Purpose</b></div>
+					<div className="col-lg-10 col-md-9 col-sm-12 col-xs-12">{taskType.purpose}</div>
+					<div style={{height:"5px"}} className="col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>
+				</div>
+			);
 		}
+
+		var process = (
+			<div className="row-fluid"></div>
+		);
 
 		if (taskType.process) {
-			detail += taskType.process + " ";
+			process = (
+				<div className="row-fluid">
+					<div className="col-lg-2 col-md-3 col-sm-12 col-xs-12"><b>Process</b></div>
+					<div className="col-lg-10 col-md-9 col-sm-12 col-xs-12">{taskType.process}</div>
+					<div style={{height:"5px"}} className="col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>
+				</div>
+			);
 		}
+
+		var outcomes = (
+			<div className="row-fluid"></div>
+		);
 
 		if (taskType.outcomes) {
-			detail += taskType.outcomes + " ";
+			outcomes = (
+				<div className="row-fluid">
+					<div className="col-lg-2 col-md-3 col-sm-12 col-xs-12"><b>Outcomes</b></div>
+					<div className="col-lg-10 col-md-9 col-sm-12 col-xs-12">{taskType.outcomes}</div>
+					<div style={{height:"5px"}} className="col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>
+				</div>
+			);
 		}
 
-		if (detail == "") {
-			detail = "There is not a lot of information about this task. You should fill out more fields--like the date due."
-		}
-
-		return callback(detail);
+		return callback(
+			<div className="container-fluid" style={{padding:"5px 0",margin:"0"}}>
+				{purpose}
+				{process}
+				{outcomes}
+			</div>
+		);
 	});
 }
 
@@ -102,7 +100,7 @@ var FeedItemTask = React.createClass({
 	},
 
 	componentWillMount: function () {
-		getDetails(this.props.task, function (detail) {
+		getState(this.props.task, function (detail) {
 			this.setState({detail:detail});
 		}.bind(this));
 	},
@@ -117,14 +115,14 @@ var FeedItemTask = React.createClass({
 
     render: function(){
         return (
-            <div>
-            	{this.state.detail}
-            </div>
-        )
+			<div className="row-fluid">
+				{this.state.detail}
+			</div>
+		);
     },
 
 	handleStoreChangeTask: function () {
-		getDetails(this.props.task, function (detail) {
+		getState(this.props.task, function (detail) {
 			this.setState({detail:detail});
 		}.bind(this));
 	}

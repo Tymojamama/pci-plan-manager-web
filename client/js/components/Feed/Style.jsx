@@ -7,7 +7,6 @@ module.exports = {
 	headingContainer: {
 		width: "100%",
 		padding: "5px",
-		borderBottom: "1px solid #ccc",
 	},
 	labelContainer: {
 		display: "inline-block",
@@ -29,6 +28,7 @@ module.exports = {
 	},
 	bodyContainer: {
 		padding: "0 5px 2px 5px",
+		borderTop: "1px solid #ccc",
 	},
 	actionContainer: {
 		padding: "1px",

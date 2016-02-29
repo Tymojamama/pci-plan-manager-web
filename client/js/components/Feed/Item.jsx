@@ -73,14 +73,12 @@ var FeedItem = React.createClass({
             <span>
                 <div style={Style.container}>
                     <div style={Style.headingContainer}>
-                        <span style={Style.iconContainer}>{this.getIcon()}</span>
+                        {this.getIcon()}
                         <div style={Style.labelContainer}>
                             <div style={{padding:"0",margin:"0",color:"#0e2e47",verticalAlign:"top"}} className="btn btn-link" onClick={this.handleLabelClick}>
                                 <b>{this.getHeading()}</b>
                             </div>
-                            <div style={{padding:"0",margin:"0",verticalAlign:"top"}}>
-                                {this.getSubHeading()}
-                            </div>
+                            {this.getSubHeading()}
                         </div>
                         <span style={Style.downContainer} className="btn btn-link" onClick={this.handleClickDown}>{"▼"}</span>
                     </div>
@@ -90,9 +88,9 @@ var FeedItem = React.createClass({
                                 {this.getFeedItemBody()}
                             </div>
                         </div>
-                        <div style={Style.actionContainer}>
-                            {this.getFeedItemActions()}
-                        </div>
+                    </div>
+                    <div style={Style.actionContainer}>
+                        {this.getFeedItemActions()}
                     </div>
                 </div>
                 {this.loadModalWindow()}
@@ -103,7 +101,7 @@ var FeedItem = React.createClass({
     getIcon: function () {
         if (this.state.iconSrc && this.state.iconSrc != '') {
             return (
-                <span>{this.state.iconSrc}</span>
+                <span style={Style.iconContainer}>{this.state.iconSrc}</span>
             );
         }
     },
@@ -132,8 +130,12 @@ var FeedItem = React.createClass({
     },
 
     getSubHeading: function () {
-        if (this.props.heading) {
-            return this.props.heading;
+        if (this.props.subHeading) {
+            return (
+                <div style={{padding:"0",margin:"0",verticalAlign:"top"}}>
+                    {this.props.subHeading}
+                </div>
+            );
         }
 
         var heading;
@@ -142,9 +144,21 @@ var FeedItem = React.createClass({
         {
             case FeedItemConstants.TASK:
                 if (this.props.object.dateDue) {
-                    heading = moment(this.props.object.dateDue).format("MMM D, YYYY");
+                    var today = new Date();
+                    var dateDue = new Date(this.props.object.dateDue)
+                    if (dateDue <= today) {
+                        heading = (
+                            <span style={{color:"#da383c"}}><b>{moment(this.props.object.dateDue).format("MMM D, YYYY")}</b></span>
+                        )
+                    } else {
+                        heading = (
+                            <span>{moment(this.props.object.dateDue).format("MMM D, YYYY")}</span>
+                        )
+                    }
                 } else {
-                    heading = "No due date.";
+                    heading = (
+                        <span>{"No due date."}</span>
+                    )
                 }
                 break;
 
@@ -155,7 +169,11 @@ var FeedItem = React.createClass({
                 break;
         }
 
-        return heading;
+        return (
+            <div style={{padding:"0",margin:"0",verticalAlign:"top"}}>
+                {heading}
+            </div>
+        );
     },
 
     getFeedItemBody: function () {

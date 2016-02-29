@@ -15,7 +15,7 @@ var FeedItem = require('../Feed/Item.jsx');
 var createTaskTypeLinkOptions = {
     pathname: '/settings/task-type',
     query: {
-        action: 'create' 
+        action: 'create'
     }
 };
 
@@ -78,7 +78,7 @@ function createComponents(docs) {
         return (
             <div>
                 {loadModalWindow()}
-                <FeedItem key={doc._id} object={doc} body={body} actions={actionItems} linkPath={linkPath} />
+                <FeedItem key={doc._id} object={doc} heading={doc.name} body={body} actions={actionItems} linkPath={linkPath} />
             </div>
         );
 
@@ -138,7 +138,7 @@ var Settings = React.createClass({
             return (
                 <ModalWindow content={content} parentPath={"/settings/task-type"} />
             )
-        } 
+        }
     },
 });
 

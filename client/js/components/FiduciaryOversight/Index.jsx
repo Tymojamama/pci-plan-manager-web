@@ -45,10 +45,10 @@ var FiduciaryOversight = React.createClass({
                     </div>
                 </div>
                 <div className="row-fluid" className="col-lg-8 col-md-12 col-sm-12 col-xs-12 col-centered">
-                    <div className="col-lg-3 col-md-3 hidden-sm hidden-xs">
+                    <div className="col-lg-3 col-md-3 hidden-sm hidden-xs" style={{paddingLeft:"0",marginLeft:"0"}}>
                         <Navigation />
                     </div>
-                    <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                    <div className="col-lg-9 col-md-9 col-sm-12 col-xs-12" style={{paddingLeft:"0",marginLeft:"0"}}>
                         {this.props.children}
                     </div>
                 </div>

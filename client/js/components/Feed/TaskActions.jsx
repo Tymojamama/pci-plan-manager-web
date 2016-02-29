@@ -3,6 +3,7 @@ var browserHistory = require('react-router').browserHistory;
 
 var Style = require('./Style.jsx');
 var TaskCompleteDialog = require('../TaskCompleteDialog/Index.jsx');
+var OpenAction = require('./Actions.jsx').Open;
 
 var TaskStore = require('../../stores/TaskStore');
 var TaskActions = require('../../actions/TaskActions');
@@ -19,6 +20,7 @@ var FeedItemTaskActions = React.createClass({
         return (
             <div>
                 {this.displayTaskCompleteDialog()}
+                <OpenAction handleClick={this.handleClickOpenTask} />
                 <button style={Style.actionItem} className="btn btn-xs btn-link"  onClick={this.handleClickCompleteTask}>
                     <span>✔️ Complete</span>
                 </button>
@@ -35,6 +37,10 @@ var FeedItemTaskActions = React.createClass({
                 <TaskCompleteDialog task={this.props.task} />
             )
         }
+    },
+
+    handleClickOpenTask: function () {
+        browserHistory.push(window.location.pathname + "?action=open-task&id=" + this.props.task._id);
     },
 
     handleClickCompleteTask: function () {

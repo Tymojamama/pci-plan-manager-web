@@ -1,4 +1,5 @@
 var React = require('react');
+var $ = require('jquery');
 var Link = require('react-router').Link;
 
 var Style = require('./Style.jsx');

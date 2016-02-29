@@ -1,4 +1,5 @@
 var React = require('react');
+var $ = require('jquery');
 var moment = require('moment');
 var browserHistory = require('react-router').browserHistory;
 
@@ -18,6 +19,10 @@ var DocumentActions = require('./DocumentActions.jsx');
 
 var TaskDetails = require('../Task/Index.jsx');
 var ModalWindow = require('../ModalWindow/Index.jsx');
+
+function getComponentId(object, type) {
+    return "feed-item-" + type + "-" + object._id;
+}
 
 function getParameterByName(name) {
     name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -67,17 +72,27 @@ var FeedItem = React.createClass({
         return (
             <span>
                 <div style={Style.container}>
-                    <div style={Style.labelContainer} className="btn btn-link" onClick={this.handleLabelClick}>
+                    <div style={Style.headingContainer}>
                         <span style={Style.iconContainer}>{this.getIcon()}</span>
-                        <b>{this.getHeading()}</b>
-                    </div>
-                    <div style={Style.bodyContainer}>
-                        <div>
-                            {this.getFeedItemBody()}
+                        <div style={Style.labelContainer}>
+                            <div style={{padding:"0",margin:"0",color:"#0e2e47",verticalAlign:"top"}} className="btn btn-link" onClick={this.handleLabelClick}>
+                                <b>{this.getHeading()}</b>
+                            </div>
+                            <div style={{padding:"0",margin:"0",verticalAlign:"top"}}>
+                                {this.getSubHeading()}
+                            </div>
                         </div>
+                        <span style={Style.downContainer} className="btn btn-link" onClick={this.handleClickDown}>{"▼"}</span>
                     </div>
-                    <div style={Style.actionContainer}>
-                        {this.getFeedItemActions()}
+                    <div id={getComponentId(this.props.object, this.props.type)} style={{display:"none"}}>
+                        <div style={Style.bodyContainer}>
+                            <div>
+                                {this.getFeedItemBody()}
+                            </div>
+                        </div>
+                        <div style={Style.actionContainer}>
+                            {this.getFeedItemActions()}
+                        </div>
                     </div>
                 </div>
                 {this.loadModalWindow()}
@@ -98,13 +113,38 @@ var FeedItem = React.createClass({
             return this.props.heading;
         }
 
-        var heading = this.props.object.name;
+        var heading;
+
+        switch(this.props.type)
+        {
+            case FeedItemConstants.TASK:
+                heading = this.props.object.name;
+                break;
+
+            case FeedItemConstants.MEETING:
+                break;
+
+            case FeedItemConstants.DOCUMENT:
+                break;
+        }
+
+        return heading;
+    },
+
+    getSubHeading: function () {
+        if (this.props.heading) {
+            return this.props.heading;
+        }
+
+        var heading;
 
         switch(this.props.type)
         {
             case FeedItemConstants.TASK:
                 if (this.props.object.dateDue) {
-                    heading = heading + ' - ' + moment(this.props.object.dateDue).format("MMM D, YYYY");
+                    heading = moment(this.props.object.dateDue).format("MMM D, YYYY");
+                } else {
+                    heading = "No due date.";
                 }
                 break;
 
@@ -177,6 +217,10 @@ var FeedItem = React.createClass({
                 return <DocumentActions document={this.props.object} />
                 break;
         }
+    },
+
+    handleClickDown: function () {
+        $("#" + getComponentId(this.props.object, this.props.type)).slideToggle("fast");
     },
 
     handleLabelClick: function () {

@@ -2,16 +2,30 @@ module.exports = {
 	container: {
 	    backgroundColor: "#fff",
 	    border: "1px solid #ccc",
-	    marginBottom: "10px",
+	    marginBottom: "5px",
+	},
+	headingContainer: {
+		width: "100%",
+		padding: "5px",
+		borderBottom: "1px solid #ccc",
 	},
 	labelContainer: {
-		padding: "5px",
-		width: "100%",
+		display: "inline-block",
 		textAlign: "left",
-		color: "#0e2e47",
+		padding: "0",
 		wordWrap: "normal",
 		whiteSpace: "normal",
-		borderBottom: "1px solid #ccc",
+		verticalAlign: "top",
+	},
+	downContainer: {
+		float: "right",
+		padding: "0",
+		textDecoration: "none",
+		color: "#ccc",
+	},
+	iconContainer: {
+		marginRight: "5px",
+		fontSize: "32px",
 	},
 	bodyContainer: {
 		padding: "0 5px 2px 5px",
@@ -29,8 +43,5 @@ module.exports = {
 	},
 	actionImage: {
 		width: "14px",
-	},
-	iconContainer: {
-		marginRight: "3px",
 	},
 }

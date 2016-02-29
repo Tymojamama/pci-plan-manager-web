@@ -38,10 +38,6 @@ function getDetails(task, callback) {
 
 	if (!task.taskTypeId) {
 
-		if (task.dateDue) {
-			detail += "This task is due on " + formatDate(task.dateDue) + ". ";
-		}
-
 		if (task.description) {
 			detail += task.description + " ";
 		}
@@ -71,15 +67,7 @@ function getDetails(task, callback) {
 		}
 
 		if (taskTypeCategoryWithArticle && taskTypeCategoryWithArticle != "") {
-			detail += "This is " + taskTypeCategoryWithArticle + " task";
-		}
-
-		if (task.dateDue && detail.length > 0) {
-			detail += " that is due on " + formatDate(task.dateDue) + ". ";
-		} else if (task.dateDue) {
-			detail += "This task is due on " + formatDate(task.dateDue) + ". ";
-		} else if (detail != "") {
-			detail += ". ";
+			detail += "This is " + taskTypeCategoryWithArticle + " task.";
 		}
 
 		if (task.description) {

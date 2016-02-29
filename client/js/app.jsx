@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var $ = require('jquery');
 
 var Router = require('react-router').Router;
 var Route = require('react-router').Route;
@@ -30,6 +31,25 @@ var TaskCategorySettings = require('./components/Settings/TaskCategorySettings.j
 var TaskTypeSettings = require('./components/Settings/TaskTypeSettings.jsx');
 var Welcome = require('./components/Welcome/Index.jsx');
 var Settings = require('./components/Settings/Index.jsx');
+
+function handleUpdateRouter () {
+    var paths = window.location.pathname.split("/");
+
+    console.log('path',window.location.pathname);
+    console.log('paths',paths);
+
+    if (window.location.pathname === "/") {
+        $("#header-navigation-summary").css({backgroundColor: "#da383c"});
+    } else if (paths.length === 2) {
+        $("#header-navigation-summary").css({backgroundColor: "#009933"});
+    } else if (paths.length === 3) {
+        $("#header-navigation-summary").css({backgroundColor: "#ffcc00"});
+    } else if (paths.length === 4) {
+        $("#header-navigation-summary").css({backgroundColor: "#0000cc"});
+    } else {
+        $("#header-navigation-summary").css({backgroundColor: "#da383c"});
+    }
+}
 
 var MobileNavigation = React.createClass({
     render: function () {
@@ -88,6 +108,6 @@ var Routes = (
 );
 
 ReactDOM.render(
- 	<Router history={browserHistory} routes={Routes} />,
+ 	<Router history={browserHistory} onUpdate={handleUpdateRouter} routes={Routes} />,
 	document.getElementById("container")
 );

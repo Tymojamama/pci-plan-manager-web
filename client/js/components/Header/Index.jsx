@@ -28,14 +28,6 @@ var Header = React.createClass({
 	componentDidMount: function () {
         UserStore.addChangeListener(this._onChange);
 
-		if ('ontouchstart' in window) {
-		    $(document).on('focus', 'textarea,input,select', function() {
-		        $('.header-navigation').css('position', 'absolute');
-		    }).on('blur', 'textarea,input,select', function() {
-		        $('.header-navigation').css('position', '');
-		    });
-		}
-
 		$("#header-navigation-notifications-panel").hide();
 		$("#header-navigation-settings-panel").hide();
 		$("#header-navigation-settings-button-down").show();
@@ -63,6 +55,7 @@ var Header = React.createClass({
 		return (
 			<div>
 				<div className="header-navigation">
+					<div id="header-navigation-summary" style={{backgroundColor:"#da383c",height:"5px",display:"none"}} />
 					<div className="col-lg-8 col-md-12 col-sm-12 col-xs-12 col-centered">
 						<Link to="/" className="header-navigation-link header-navigation-title" onClick={this.handleClickLink}>PlanManager</Link>
 	                    <span className="header-navigation-menu">

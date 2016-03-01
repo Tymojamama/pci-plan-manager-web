@@ -75,7 +75,7 @@ var FeedItem = React.createClass({
                     <div style={Style.headingContainer}>
                         {this.getIcon()}
                         <div style={Style.labelContainer}>
-                            <div style={{padding:"0",margin:"0",color:"#0e2e47",verticalAlign:"top"}} className="btn btn-link" onClick={this.handleLabelClick}>
+                            <div style={{padding:"0",margin:"0",color:"#0e2e47",verticalAlign:"top",textAlign:"left",wordWrap: "normal",whiteSpace: "normal"}} className="btn btn-link" onClick={this.handleLabelClick}>
                                 <b>{this.getHeading()}</b>
                             </div>
                             {this.getSubHeading()}

@@ -10,9 +10,8 @@ module.exports = {
 		overflowY: "scroll",
 	},
 	content: {
-		padding: "15px",
 		backgroundColor: "transparent",
-		margin: "60px 0 60px 0",
+		padding: "15px 0",
 	},
 	close: {
 		float: "right",

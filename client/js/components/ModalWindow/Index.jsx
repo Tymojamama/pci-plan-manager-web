@@ -27,15 +27,9 @@ var ModalWindow = React.createClass({
 				<div style={style.closeContainer}>
             		<span className="btn btn-link" style={style.close} onClick={this.handleClose}>❌</span>
             	</div>
-            	<div className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-centered">
-	                <div className="col-lg-3 col-md-2 hidden-sm hidden-xs">
-
-	                </div>
-	                <div style={style.content} className="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+            	<div style={{padding:"0"}} className="col-lg-12 col-md-12 col-sm-12 col-xs-12 col-centered">
+	                <div style={style.content} className="col-lg-6 col-md-8 col-sm-12 col-xs-12 col-centered">
 						{Content}
-	                </div>
-	                <div className="col-lg-3 col-md-2 hidden-sm hidden-xs">
-
 	                </div>
 	            </div>
 			</div>

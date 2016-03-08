@@ -34,9 +34,6 @@ var Header = React.createClass({
 		$("#header-navigation-settings-button-up").hide();
 
         $(document).mouseup(function (e) {
-			console.log(!$("#header-navigation-notifications-panel").is(e.target))
-			console.log($("#header-navigation-notifications-panel").has(e.target))
-			console.log($(".header-navigation-notifications-button").has(e.target).length === 0)
             if (
 				(!$("#header-navigation-notifications-panel").is(e.target)
 				|| $("#header-navigation-notifications-panel").has(e.target).length === 0)

@@ -50,7 +50,7 @@ var LinkItem = React.createClass({
     	if (getSelectionStatus(this.props.link))
     	{
 	        return (
-	        	<Link to={this.props.link} style={Style.linkItem}>
+	        	<Link to={this.props.link} style={Style.linkItem} onClick={this.handleClick}>
 		            <div style={linkItemHoverStyle} className="btn btn-link">
                         {this.getImage()}
 		            	{this.props.label}
@@ -61,7 +61,7 @@ var LinkItem = React.createClass({
     	else
     	{
 	        return (
-	        	<Link to={this.props.link} style={Style.linkItem} onMouseOver={this.mouseEnter} onMouseOut={this.mouseOut}>
+	        	<Link to={this.props.link} style={Style.linkItem} onClick={this.handleClick} onMouseOver={this.mouseEnter} onMouseOut={this.mouseOut}>
 		            <div style={this.state.style} className="btn btn-link">
                         {this.getImage()}
 	            		{this.props.label}
@@ -69,6 +69,12 @@ var LinkItem = React.createClass({
 	            </Link>
 	        )
     	}
+    },
+
+    handleClick: function () {
+        if (this.props.handleClick) {
+            this.props.handleClick();
+        }
     },
 
     getImage: function () {

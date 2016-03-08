@@ -1,61 +1,26 @@
 var React = require('react');
 var S = require('string');
 var Style = require('./Style.jsx');
+var ActionExecute = require('./Execute.jsx');
 
 var ActionStore = require('../../stores/ActionStore');
 
+var ModalWindow = require('../ModalWindow/Index.jsx');
 var LinkItem = require('../Navigation/LinkItem.jsx');
 var Spacer = require('../Navigation/Spacer.jsx');
 var Header = require('../Navigation/Header.jsx');
 
 function getState(callback) {
-    var _actions = [];
-    _actions[0] = {
-        _id: '1',
-        name: 'Modify named plan fiduciary',
-        pages: [
-            {
-                header: 'Page 1',
-                body: 'This is some body text',
-                commands: [
-                    {
-                        name: 'Create task',
-                        target: 'localhost/stores/task',
-                        method: 'POST',
-                        body: '{name:"Test Task",description:"Do this task",ownerId:"__USERID__"}',
-                        runAsynchronously: true,
-                    }
-                ]
-            }
-        ]
-    };
-    _actions[1] = {
-        _id: '2',
-        name: 'Hire a service provider',
-    };
-    _actions[2] = {
-        _id: '3',
-        name: 'Modify investment line-up',
-    };
-    _actions[3] = {
-        _id: '4',
-        name: 'Prepare for an audit',
-    };
-    _actions[4] = {
-        _id: '5',
-        name: 'Handle a participant complaint',
-    };
-    _actions[5] = {
-        _id: '6',
-        name: 'Potato',
-    };
-    _actions[6] = {
-        _id: '7',
-        name: 'Pasta',
-    };
     ActionStore.get(function (docs) {
         callback({ actions: docs });
     });
+}
+
+function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
 function createComponentIncreaseTopN (state, handleClick) {
@@ -66,8 +31,8 @@ function createComponentIncreaseTopN (state, handleClick) {
     return (
         <div style={{marginBottom:"5px"}}>
             <div style={{color:"#f1f4f6",textDecoration:"none",display:"block",width:"100%",whiteSpace:"normal"}} onClick={handleClick}>
-                <div style={{color:"rgb(241, 244, 246)",fontSize: "14px",padding:"20px 10px",marginBottom: "5px",width: "100%",textAlign:"left",whiteSpace:"normal",backgroundColor: "rgb(34, 34, 34)"}} className="btn btn-link">
-                    {"➕ Load More"}
+                <div style={{color:"rgb(241, 244, 246)",fontSize: "14px",padding:"20px 10px",marginBottom: "5px",width: "100%",textAlign:"left",whiteSpace:"normal",backgroundColor: "#666666"}} className="btn btn-link">
+                    {"+ Load More"}
                 </div>
             </div>
         </div>
@@ -79,14 +44,26 @@ function createNavigationItemComponents (state) {
         return;
     }
     return state.actions.slice(0,state.topN).map(function (action) {
+        var loadModalWindow = function () {
+            if (getParameterByName('action') == action._id) {
+                var id = getParameterByName('action');
+                var content = <ActionExecute action={action} />
+                return (
+                    <ModalWindow content={content} parentPath={window.location.pathname.split("?")[0]} />
+                );
+            }
+        }
+
         return (
-            <LinkItem
-                key={action._id}
-                label={"🔨 " + action.name}
-                link={window.location.pathname + "?action=" + action._id}
-                backgroundColor="#222222"
-                backgroundColorHover="#0d0d0d"
-            />
+            <div>
+                {loadModalWindow()}
+                <LinkItem
+                    key={action._id}
+                    label={"🔨 " + action.name}
+                    link={window.location.pathname + "?action=" + action._id}
+                    backgroundColor="#222222"
+                    backgroundColorHover="#0d0d0d" />
+            </div>
         );
     });
 }
@@ -114,7 +91,7 @@ var ActionSettings = React.createClass({
                 <div>
                     <Header label={"🔨 Actions"} />
                     <div style={{marginBottom:"5px"}}>
-                        <input type="text" placeholder="🔎 Search for an action" style={{padding:"5px",width:"100%"}} onChange={this.handleChangePlanSearch} />
+                        <input type="text" placeholder="🔎 Search for an action" style={{padding:"5px",width:"100%"}} onChange={this.handleChange_Search} />
                     </div>
                     {createNavigationItemComponents(this.state)}
                     {createComponentIncreaseTopN(this.state, this.handleClickIncreaseTopN)}
@@ -126,7 +103,7 @@ var ActionSettings = React.createClass({
             <div style={{paddingTop:"60px"}} className="col-lg-8 col-md-12 col-sm-12 col-xs-12 col-centered">
                 <Header label={"🔨 Actions"} />
                 <div style={{marginBottom:"5px"}}>
-                    <input type="text" placeholder="🔎 Search for an action" style={{padding:"5px",width:"100%"}} onChange={this.handleChangePlanSearch} />
+                    <input type="text" placeholder="🔎 Search for an action" style={{padding:"5px",width:"100%"}} onChange={this.handleChange_Search} />
                 </div>
                 {createNavigationItemComponents(this.state)}
                 {createComponentIncreaseTopN(this.state, this.handleClickIncreaseTopN)}
@@ -134,7 +111,7 @@ var ActionSettings = React.createClass({
         )
     },
 
-    handleChangePlanSearch: function (event) {
+    handleChange_Search: function (event) {
         getState(function (state) {
 
             if (S(event.target.value).isEmpty()) {
@@ -142,11 +119,38 @@ var ActionSettings = React.createClass({
             }
 
             var _actions = [];
+            var _searchResults = [];
 
             for (var i = 0; i < state.actions.length; i++) {
-                if (S(state.actions[i].name.toUpperCase()).contains(event.target.value.toUpperCase())) {
-                    _actions.push(state.actions[i]);
+                var keywords = event.target.value.split(" ");
+
+                var result = {
+                    score: 0,
+                    object: {},
+                };
+
+                for (var j = 0; j < keywords.length; j++) {
+                    if (S(keywords[j]).isEmpty()) {
+                        continue;
+                    }
+
+                    if (S(state.actions[i].name.toUpperCase()).contains(keywords[j].toUpperCase())) {
+                        result.score++;
+                        result.object = state.actions[i];
+                    }
                 }
+
+                if (result.score > 0 && result.object) {
+                    _searchResults.push(result);
+                }
+            }
+
+            _searchResults.sort(function (a, b) {
+                return b.score - a.score;
+            });
+
+            for (var i = 0; i < _searchResults.length; i++) {
+                _actions.push(_searchResults[i].object);
             }
 
             this.setState({

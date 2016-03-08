@@ -11,7 +11,8 @@ module.exports = {
 	},
 	content: {
 		backgroundColor: "transparent",
-		padding: "15px 0",
+		padding: "0",
+		top: "15px",
 	},
 	close: {
 		float: "right",

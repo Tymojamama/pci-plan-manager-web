@@ -2,6 +2,7 @@ var React = require('react');
 var Link = require('react-router').Link;
 var browserHistory = require('react-router').browserHistory;
 var Style = require('./Style.jsx');
+var ActionPage = require('../Actions/Settings.jsx');
 var ActionStore = require('../../stores/ActionStore');
 var ActionActions = require('../../actions/ActionActions');
 var ModalWindow = require('../ModalWindow/Index.jsx');
@@ -65,9 +66,7 @@ function createComponents(docs) {
         var loadModalWindow = function () {
             if (getParameterByName('action') == 'open' && getParameterByName('id') == doc._id) {
                 var id = getParameterByName('id');
-                var content = (
-                    <div>{id}</div>
-                )
+                var content = <ActionPage id={id} />
                 return (
                     <ModalWindow content={content} parentPath={"/settings/action"} />
                 )
@@ -79,7 +78,7 @@ function createComponents(docs) {
         return (
             <div>
                 {loadModalWindow()}
-                <FeedItem key={doc._id} object={doc} body={body} actions={actionItems} linkPath={linkPath} />
+                <FeedItem key={doc._id} object={doc} heading={doc.name} body={body} actions={actionItems} linkPath={linkPath} />
             </div>
         );
 
@@ -106,6 +105,7 @@ var Actions = React.createClass({
     componentWillUnmount: function() {
         ActionStore.removeChangeListener(this.handleChangeActionStore);
     },
+
     render: function () {
         return (
             <div>
@@ -134,9 +134,7 @@ var Actions = React.createClass({
 
     loadModalWindow: function () {
         if (getParameterByName('action') == 'create' ) {
-            var content = (
-                <div>Test</div>
-            );
+            var content = <ActionPage />
             return (
                 <ModalWindow content={content} parentPath={"/settings/action"} />
             )

@@ -49,38 +49,74 @@ function getState(obj, type, callback) {
 
 }
 
+function getId (props) {
+    if (props.object && props.type) {
+        return "#feed-item-" + props.type + "-"+ props.object._id;
+    } else if (props.obj) {
+        return "#feed-item-no-type-" + props.object._id;
+    } else if (props.heading) {
+        return "#feed-item-" + props.heading.replace(" ", "-").replace("(","").replace(")","");
+    } else {
+        return "#feed-item-no-data";
+    }
+}
+
 var FeedItem = React.createClass({
     getInitialState: function () {
         return {
-            iconSrc: ''
+            iconSrc: '',
+            isDeleted: '',
         }
     },
 
     componentWillMount: function () {
+        if (this.props.iconSrc) {
+            return this.setState({
+                iconSrc: this.props.iconSrc,
+                isDeleted: false,
+            });
+        }
+
         getState(this.props.object, this.props.type, function (state) {
-            this.setState(state);
+            this.setState({
+                iconSrc: state.iconSrc,
+                isDeleted: false,
+            });
         }.bind(this));
     },
 
     componentWillReceiveProps: function () {
         getState(this.props.object, this.props.type, function (state) {
-            this.setState(state);
+            this.setState({
+                iconSrc: state.iconSrc,
+                isDeleted: false,
+            });
         }.bind(this));
     },
 
-    render: function(){
+    render: function () {
+        if (this.state.isDeleted === true) {
+            return (
+                <div></div>
+            )
+        }
+
         return (
-            <span>
+            <span id={getId(this.props)}>
                 <div style={Style.container}>
-                    <div style={Style.headingContainer}>
-                        {this.getIcon()}
-                        <div style={Style.labelContainer}>
+                    <div className="container-fluid" style={Style.headingContainer}>
+                        <div className="col-lg-1 col-md-1 col-sm-1 col-xs-2" style={{padding:"0"}}>{this.getIcon()}</div>
+                        <div className="col-lg-10 col-md-10 col-sm-10 col-xs-9" style={Style.labelContainer}>
                             <div style={{padding:"0",margin:"0",color:"#0e2e47",verticalAlign:"top",textAlign:"left",wordWrap: "normal",whiteSpace: "normal"}} className="btn btn-link" onClick={this.handleLabelClick}>
                                 <b>{this.getHeading()}</b>
                             </div>
                             {this.getSubHeading()}
                         </div>
-                        <span style={Style.downContainer} className="btn btn-link" onClick={this.handleClickDown}>{"▼"}</span>
+                        <div className="col-lg-1 col-md-1 col-sm-1 col-xs-1" style={{padding:"0",textAlign:"right"}}>
+                            <div style={Style.downContainer} className="btn btn-link" onClick={this.handleClickDown}>
+                                {"▼"}
+                            </div>
+                        </div>
                     </div>
                     <div id={getComponentId(this.props.object, this.props.type)} style={{display:"none"}}>
                         <div style={Style.bodyContainer}>
@@ -202,14 +238,21 @@ var FeedItem = React.createClass({
             var actionItems = [];
 
             for (var i = 0; i < this.props.actions.length; i++) {
-                switch(this.props.actions[i].type) {
+                var action = this.props.actions[i];
+
+                var handleClick_ActionDelete = function () {
+                    action.handleClick();
+                    this.handleClick_Delete();
+                }.bind(this);
+
+                switch (action.type) {
                     case "open":
                         var OpenAction = Actions.Open;
-                        actionItems.push(<OpenAction handleClick={this.props.actions[i].handleClick} />);
+                        actionItems.push(<OpenAction handleClick={action.handleClick} />);
                         break;
                     case "delete":
                         var DeleteAction = Actions.Delete;
-                        actionItems.push(<DeleteAction handleClick={this.props.actions[i].handleClick} />);
+                        actionItems.push(<DeleteAction handleClick={handleClick_ActionDelete} />);
                         break;
                 }
             }
@@ -221,18 +264,17 @@ var FeedItem = React.createClass({
             )
         }
 
-        switch(this.props.type)
-        {
+        switch(this.props.type) {
             case FeedItemConstants.TASK:
-                return <TaskActions task={this.props.object} />
+                return <TaskActions task={this.props.object} handleDelete={this.handleClick_Delete} />
                 break;
 
             case FeedItemConstants.MEETING:
-                return <MeetingActions meeting={this.props.object} />
+                return <MeetingActions meeting={this.props.object} handleDelete={this.handleClick_Delete} />
                 break;
 
             case FeedItemConstants.DOCUMENT:
-                return <DocumentActions document={this.props.object} />
+                return <DocumentActions document={this.props.object} handleDelete={this.handleClick_Delete} />
                 break;
         }
     },
@@ -243,6 +285,14 @@ var FeedItem = React.createClass({
 
     handleLabelClick: function () {
         browserHistory.push(this.props.linkPath);
+    },
+
+    // makes sure the item is immediately removed when delete is clicked
+    handleClick_Delete: function () {
+        this.setState({
+            iconSrc: this.state.iconSrc,
+            isDeleted: true,
+        });
     },
 
     loadModalWindow: function () {

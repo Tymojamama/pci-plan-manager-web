@@ -1,9 +1,11 @@
 var React = require('react');
 
+var Style = require('./Style.jsx');
+var ButtonPrimary = require('../ButtonPrimary/Index.jsx');
+var ButtonSecondary = require('../ButtonSecondary/Index.jsx');
+
 var TaskCategoryStore = require('../../stores/TaskCategoryStore');
 var TaskCategoryActions = require('../../actions/TaskCategoryActions');
-
-var Style = require('./Style.jsx');
 
 var _taskCategory = {};
 
@@ -74,13 +76,15 @@ var Task = React.createClass({
 	                        </div>
 	                    </div>
 	                </div>
-	                <div className="container-fluid">
-	                    <div className="row">
+	                <div className="container-fluid" style={{margin:"0",padding:"0"}}>
+	                    <div className="row" style={{margin:"0",padding:"0"}}>
 	                        <div className="row-fluid padding-top-05">
-	                            <span className="col-lg-4 col-md-4 hidden-sm hidden-xs"></span>
-	                            <span className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-	                                <div className="btn btn-primary" style={Style.saveButton} onClick={this.handleClickSave}>Save</div>
-	                                <div className="btn btn-default" onClick={this.handleClickClose}>Cancel</div>
+	                            <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+									<div style={{float:"right"}}>
+					                    <ButtonSecondary label={"Cancel"} onClick={this.handleClickClose} />
+										<span style={{marginLeft:"5px"}} />
+					                    <ButtonPrimary label={"Save"} onClick={this.handleClickSave} />
+									</div>
 	                            </span>
 	                        </div>
 	                    </div>

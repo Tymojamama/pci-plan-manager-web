@@ -45,7 +45,9 @@ var Feed = React.createClass({
 
     loadTasks: function () {
         if (!this.state.tasks || this.state.tasks.length === 0){
-            return;
+            return (
+                <div></div>
+            )
         }
         return this.state.tasks.map(function (task) {
             return (

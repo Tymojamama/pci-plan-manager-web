@@ -20,4 +20,12 @@ router.use('/task-complete', function (req, res, next) {
 	}
 });
 
+router.use('/wait', function (req, res, next) {
+	try {
+	    res.sendFile(path.join(__dirname + _root + '/images/wait.gif'));
+	} catch(err) {
+    	return next(err);
+	}
+});
+
 module.exports = router;

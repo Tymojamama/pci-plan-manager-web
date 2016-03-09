@@ -17,7 +17,7 @@ module.exports = {
 		verticalAlign: "top",
 	},
 	downContainer: {
-		float: "right",
+		textAlign: "right",
 		padding: "0",
 		textDecoration: "none",
 		color: "#ccc",

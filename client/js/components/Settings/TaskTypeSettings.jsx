@@ -11,6 +11,7 @@ var Style = require('./Style.jsx');
 var TaskType = require('../TaskType/Index.jsx');
 var ModalWindow = require('../ModalWindow/Index.jsx');
 var FeedItem = require('../Feed/Item.jsx');
+var FeedItemBody = require('../Feed/Task.jsx');
 
 var createTaskTypeLinkOptions = {
     pathname: '/settings/task-type',
@@ -42,12 +43,12 @@ function createComponents(docs) {
 
     return docs.map(function (doc) {
 
+        var task = {
+            taskTypeId: doc._id
+        };
+
         var body = (
-            <div>
-                <div>Purpose: {doc.purpose}</div>
-                <div>Process: {doc.process}</div>
-                <div>Outcomes: {doc.outcomes}</div>
-            </div>
+            <FeedItemBody task={task} />
         );
 
         var handleClickOpen = function () {
@@ -78,7 +79,15 @@ function createComponents(docs) {
         return (
             <div>
                 {loadModalWindow()}
-                <FeedItem key={doc._id} object={doc} heading={doc.name} body={body} actions={actionItems} linkPath={linkPath} />
+                <FeedItem
+                    key={doc._id}
+                    iconSrc={"🔧"}
+                    object={doc}
+                    heading={doc.name}
+                    subHeading={"Task Type Settings"}
+                    body={body}
+                    actions={actionItems}
+                    linkPath={linkPath} />
             </div>
         );
 

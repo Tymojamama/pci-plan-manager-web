@@ -49,6 +49,7 @@ var FeedItemTaskActions = React.createClass({
 
     handleClickDeleteTask: function () {
     	TaskActions.destroy(this.props.task);
+        this.props.handleDelete();
     },
 });
 

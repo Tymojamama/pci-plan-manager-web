@@ -74,7 +74,15 @@ function createComponents(docs) {
         return (
             <div>
                 {loadModalWindow()}
-                <FeedItem key={doc._id} object={doc} heading={doc.icon + " " + doc.name} body={body} actions={actionItems} linkPath={linkPath} />
+                <FeedItem
+                    key={doc._id}
+                    iconSrc={"🔧"}
+                    object={doc}
+                    heading={doc.icon + " " + doc.name}
+                    subHeading={"Task Category Settings"}
+                    body={body}
+                    actions={actionItems}
+                    linkPath={linkPath} />
             </div>
         );
 

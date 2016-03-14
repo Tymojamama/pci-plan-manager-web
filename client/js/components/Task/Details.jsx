@@ -5,8 +5,8 @@ var S = require('string');
 var moment = require('moment');
 
 var Style = require('./Style.jsx');
-var ButtonPrimary = require('../ButtonPrimary/Index.jsx');
-var ButtonSecondary = require('../ButtonSecondary/Index.jsx');
+var ButtonPrimary = require('../Button/Index.jsx').Primary;
+var ButtonSecondary = require('../Button/Index.jsx').Secondary;
 
 var PlanStore = require('../../stores/PlanStore');
 var TaskStore = require('../../stores/TaskStore');

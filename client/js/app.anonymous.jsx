@@ -11,6 +11,8 @@ var Footer = require('./components/Footer/Index.jsx');
 var Home = require('./components/Home.Anonymous/Index.jsx');
 var LoginPage = require('./components/Login/Page.jsx');
 var RegisterPage = require('./components/Register/Page.jsx');
+var PasswordReset = require('./components/PasswordReset.Anonymous/Page.jsx');
+var ForgotPage = require('./components/Forgot.Anonymous/Page.jsx');
 
 function scrollToTop () {
     window.scrollTo(0, 0);
@@ -33,6 +35,8 @@ var Routes = (
     	<IndexRoute component={Home} />
         <Route path="login" component={LoginPage} />
         <Route path="register" component={RegisterPage} />
+        <Route path="forgot" component={ForgotPage} />
+        <Route path="forgot/:id" component={PasswordReset} />
         <Route path="*" component={LoginPage} />
     </Route>
 );

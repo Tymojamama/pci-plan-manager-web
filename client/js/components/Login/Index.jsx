@@ -46,6 +46,12 @@ var Login = React.createClass({
                 		<a href="/register">Create an account.</a>
                 	</div>
 				</div>
+				<div style={Style.register}>
+                	<div style={Style.registerLink}>
+                		Forgot your password?<br/>
+                		<a href="/forgot">Reset it.</a>
+                	</div>
+				</div>
 			</div>
 		)
 	},

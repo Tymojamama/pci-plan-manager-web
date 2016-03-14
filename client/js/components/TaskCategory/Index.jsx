@@ -1,8 +1,8 @@
 var React = require('react');
 
 var Style = require('./Style.jsx');
-var ButtonPrimary = require('../ButtonPrimary/Index.jsx');
-var ButtonSecondary = require('../ButtonSecondary/Index.jsx');
+var ButtonPrimary = require('../Button/Index.jsx').Primary;
+var ButtonSecondary = require('../Button/Index.jsx').Secondary;
 
 var TaskCategoryStore = require('../../stores/TaskCategoryStore');
 var TaskCategoryActions = require('../../actions/TaskCategoryActions');

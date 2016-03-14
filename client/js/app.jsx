@@ -35,9 +35,6 @@ var Settings = require('./components/Settings/Index.jsx');
 function handleUpdateRouter () {
     var paths = window.location.pathname.split("/");
 
-    console.log('path',window.location.pathname);
-    console.log('paths',paths);
-
     if (window.location.pathname === "/") {
         $("#header-navigation-summary").css({backgroundColor: "#da383c"});
     } else if (paths.length === 2) {

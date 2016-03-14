@@ -20,6 +20,7 @@ require('./server/config/session') (app);
 require('./server/config/login') (app);
 require('./server/config/logout') (app);
 require('./server/config/authentication') (app);
+require('./server/config/resetPassword') (app);
 require('./server/config/registration') (app);
 
 app.use('/stores', require('./server/routers/stores'));

@@ -121,11 +121,7 @@ var PasswordReset = React.createClass({
             this._state.success = false;
             this._state.submitting = false;
             this._state.submitted = true;
-            this._state.message =
-                "Password was not changed. Submitted data was invalid."
-                + " It's possible that this password reset request has received too many invalid submissions."
-                + " For security reasons, too many invalid submissions will invalidate the password reset request"
-                + " and will require you to obtain a new password reset link.";
+            this._state.message = "Password was not changed. Submitted data was invalid.";
             return this.setState(this._state);
         }
 
@@ -142,11 +138,7 @@ var PasswordReset = React.createClass({
                 this._state.success = false;
                 this._state.submitting = false;
                 this._state.submitted = true;
-                this._state.message = data.message
-                    + " It's possible that this password reset request has expired"
-                    + " or this password reset request has received too many invalid submissions."
-                    + " For security reasons, too many invalid submissions will invalidate the password reset request"
-                    + " and will require you to obtain a new password reset link.";
+            	this._state.message = "Password was not changed. Submitted data was invalid.";
                 return this.setState(this._state);
             } else {
                 this._state.success = true;

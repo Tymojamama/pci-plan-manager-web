@@ -6,7 +6,7 @@ var RegisterPage = React.createClass({
 	render: function () {
 		return (
             <div style={Style.headerPadding} className="col-lg-8 col-md-12 col-sm-12 col-xs-12 col-centered">
-                <RegisterComponent />
+                <RegisterComponent children={this.props.children} />
             </div>
 		)
 	}

@@ -8,7 +8,12 @@ module.exports.login = function (options, callback) {
 	authenticator.login(options, callback);
 }
 
-module.exports.register = function (options, callback) {
+module.exports.requestUserRegistration = function (options, callback) {
+	var registrar = new registration();
+	registrar.requestRegistration(options, callback);
+}
+
+module.exports.registerUser = function (options, callback) {
 	var registrar = new registration();
 	registrar.register(options, callback);
 }

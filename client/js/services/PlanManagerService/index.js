@@ -10,9 +10,46 @@ var Service = {
 	users: new Slave("user"),
 }
 
-module.exports = Service;
+Service.requestUserSetup = function(options, callback) {
+	 $.ajax({
+		url: '/register',
+		type: 'POST',
+		contentType: "application/json",
+        beforeSend: function (xhr) {
+			xhr.setRequestHeader('email', options.email);
+			xhr.setRequestHeader('firstname', options.firstName);
+			xhr.setRequestHeader('lastname', options.lastName);
+			xhr.setRequestHeader('password', options.password);
+		},
+		success: function(data) {
+			callback(data);
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			console.log("XHR Status:", xhr.status);
+			console.log("Thrown Error:", thrownError);
+		}
+	});
+}
 
-module.exports.requestPasswordReset = function(options, callback) {
+Service.setupUser = function (options, callback) {
+	 $.ajax({
+		url: '/register/' + options.id,
+		type: 'POST',
+		contentType: "application/json",
+        beforeSend: function (xhr) {
+			xhr.setRequestHeader('token', options.token);
+		},
+		success: function(data){
+			callback(data);
+		},
+		error: function (xhr, ajaxOptions, thrownError) {
+			console.log("XHR Status:", xhr.status);
+			console.log("Thrown Error:", thrownError);
+		}
+	});
+}
+
+Service.requestPasswordReset = function(options, callback) {
 	 $.ajax({
 		url: '/forgot',
 		type: 'POST',
@@ -30,7 +67,7 @@ module.exports.requestPasswordReset = function(options, callback) {
 	});
 }
 
-module.exports.resetPassword = function(options, callback) {
+Service.resetPassword = function(options, callback) {
 	 $.ajax({
 		url: '/forgot/' + options.id,
 		type: 'POST',
@@ -48,3 +85,5 @@ module.exports.resetPassword = function(options, callback) {
 		}
 	});
 }
+
+module.exports = Service;

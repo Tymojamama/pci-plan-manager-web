@@ -2,7 +2,7 @@ var http = require('http');
 
 var settings = require('./settings');
 
-function Authenticator () {
+function Registrar () {
     this.callback;
     this.requestOptions = {};
     this.chunks;
@@ -46,8 +46,7 @@ function Authenticator () {
     }
 }
 
-// authenticates and gets access token
-Authenticator.prototype.register = function(options, callback) {
+Registrar.prototype.requestRegistration = function (options, callback) {
     this.requestOptions = {
         host: settings.host,
         port: settings.port,
@@ -55,6 +54,8 @@ Authenticator.prototype.register = function(options, callback) {
         method: 'POST',
         headers: {
             'email': options.email,
+            'firstname': options.firstName,
+            'lastname': options.lastName,
             'password': options.password
         }
     };
@@ -63,4 +64,20 @@ Authenticator.prototype.register = function(options, callback) {
     this.genereateHttpRequest();
 }
 
-module.exports = Authenticator;
+// authenticates and gets access token
+Registrar.prototype.register = function(options, callback) {
+    this.requestOptions = {
+        host: settings.host,
+        port: settings.port,
+        path: '/register/' + options.id,
+        method: 'POST',
+        headers: {
+            'token': options.token,
+        }
+    };
+    this.callback = callback;
+
+    this.genereateHttpRequest();
+}
+
+module.exports = Registrar;

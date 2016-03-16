@@ -1,19 +1,9 @@
 var React = require('react');
 var Style = require('./Style.jsx');
+var ButtonPrimary = require('../Button/Index.jsx').Primary;
+var PlanManagerService = require('../../services/PlanManagerService');
 
 var Register = React.createClass({
-	getInitialState: function () {
-		return {
-			submitButtonStyle: '',
-		}
-	},
-
-	componentWillMount: function () {
-		this.setState({
-			submitButtonStyle: Style.formSubmit,
-		});
-	},
-
 	render: function () {
 		return (
 			<div style={Style.container}>
@@ -47,25 +37,7 @@ var Register = React.createClass({
 				<div style={{height:"20px"}} className="col-lg-12 col-md-12 col-sm-12 col-xs-12" />
 				<div style={Style.register}>
                 	<div style={Style.loginForm} className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-	                	<div style={Style.header}>
-	                		Create an account
-	                	</div>
-						<form action="/register" method="post">
-							<label style={Style.formLabel}>Your Email</label>
-							<input style={Style.formInput} type="email" name="email" />
-							<div style={Style.inputAlert}>{this.state.emailStatus}</div>
-
-							<label style={Style.formLabel}>Password</label>
-							<input style={Style.formInput} type="password" name="password" onFocus={this.handlePasswordFocus} />
-							<div style={Style.inputAlert}>{this.state.passwordStatus}</div>
-
-							<label style={Style.formLabel}>Confirm Password</label>
-							<input style={Style.formInput} type="password" name="password-confirm" onFocus={this.handlePasswordFocus} />
-							<div style={Style.inputAlert}>{this.state.passwordConfirmStatus}</div>
-
-							<input type="submit" value="🔒 Create Account" style={this.state.submitButtonStyle}
-								onMouseOver={this.handleMouseOver} onMouseOut={this.handleMouseOut} className="btn btn-default" />
-						</form>
+						{this.props.children}
 					</div>
                 	<div style={Style.rightColumn} className="col-lg-4 col-md-4 hidden-sm hidden-xs">
                 		<div style={Style.highlights}>
@@ -84,25 +56,7 @@ var Register = React.createClass({
 				</div>
 			</div>
 		)
-	},
-
-	handleMouseOver: function () {
-		this.setState({
-			submitButtonStyle: Style.formSubmitHover
-		});
-	},
-
-	handleMouseOut: function () {
-		this.setState({
-			submitButtonStyle: Style.formSubmit
-		});
-	},
-
-	handlePasswordFocus: function () {
-		this.setState({
-			submitButtonStyle: this.state.submitButtonStyle,
-		})
-	},
+	}
 });
 
 module.exports = Register;

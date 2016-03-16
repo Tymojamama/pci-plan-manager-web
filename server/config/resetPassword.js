@@ -13,17 +13,10 @@ module.exports = function (app) {
 
 			PlanManagerService.requestPasswordReset(options, function (chunks) {
 				var json = JSON.parse(chunks);
-				if (json.success === true) {
-					return res.json({
-						success: true,
-						message: json.message,
-					});
-				} else {
-					return res.json({
-						success: false,
-						message: json.message,
-					});
-				}
+				return res.json({
+					success: json.success,
+					message: json.message,
+				});
 			});
 		} else {
 			return res.json({
@@ -47,17 +40,10 @@ module.exports = function (app) {
 
 			PlanManagerService.resetPassword(options, function (chunks) {
 				var json = JSON.parse(chunks);
-				if (json.success === true) {
-					return res.json({
-						success: true,
-						message: "Password was successfully changed.",
-					});
-				} else {
-					return res.json({
-						success: false,
-						message: "Password was not changed. Submitted data was invalid or password request has expired.",
-					});
-				}
+				return res.json({
+					success: json.success,
+					message: json.message,
+				});
 			});
 		} else {
 			return res.json({

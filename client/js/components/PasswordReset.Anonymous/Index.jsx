@@ -61,11 +61,10 @@ var PasswordReset = React.createClass({
                 	<div style={Style.loginForm}>
 						<label style={Style.formLabel}>New Password</label>
 						<input type="password" value={this.state.firstPassword} style={Style.formInput} onChange={this.handleChange_FirstPassword} />
-						<label style={Style.formLabel}>Re-enter Password</label>
+						<label style={Style.formLabel}>Confirm New Password</label>
 						<input type="password" value={this.state.secondPassword} style={Style.formInput} onChange={this.handleChange_SecondPassword} name="password" />
                         <div style={{marginTop:"10px"}} />
                         <ButtonPrimary label={"🔒 Submit"} onClick={this.handleClick_Submit} />
-						{this.getSuccessMessage()}
 						{this.getErrorMessage()}
 					</div>
 				</div>

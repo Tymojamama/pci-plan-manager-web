@@ -1,0 +1,48 @@
+{
+  "name": "plan-manager",
+  "version": "0.1.0",
+  "description": "A tool for successfully guiding a plan's fiduciary in managing the retirement plan, recording information produced in the process, and providing intuitive access to the information.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node boot.js",
+    "build": "browserify -t reactify client/js/app.anonymous.jsx -t envify --NODE_ENV development | uglifyjs --compress --mangle > client/build/bundle.anonymous.js && browserify -t reactify client/js/app.jsx -t envify --NODE_ENV development | uglifyjs --compress --mangle > client/build/bundle.js",
+    "build-anonymous": "browserify -t reactify client/js/app.anonymous.jsx -t envify --NODE_ENV development | uglifyjs --compress --mangle > client/build/bundle.anonymous.js",
+    "build-authorized": "browserify -t reactify client/js/app.jsx -t envify --NODE_ENV development | uglifyjs --compress --mangle > client/build/bundle.js"
+  },
+  "author": "Zach Allen",
+  "license": "ISC",
+  "browserify": {
+    "debug": false,
+    "transform": [
+        "reactify"
+    ]
+  },
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "connect-mongo": "^1.1.0",
+    "cookie-parser": "^1.4.1",
+    "events": "^1.1.0",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "flux": "^2.1.1",
+    "history": "^2.0.0",
+    "jquery": "^2.2.1",
+    "keymirror": "^0.1.1",
+    "moment": "^2.11.2",
+    "object-assign": "^4.0.1",
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-router": "^2.0.0",
+    "string": "^3.3.1"
+  },
+  "devDependencies": {
+    "browserify": "^12.0.2",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "reactify": "^1.1.1",
+    "uglify-js": "^2.6.2"
+  }
+}

@@ -39,6 +39,8 @@ var RegisterRequest = React.createClass({
                 <div style={Style.header}>
                     Create an account
                 </div>
+				
+                {this.getErrorMessage()}
 
                 <label style={Style.formLabel}>
                     <span style={{color:"#da383c"}}>* </span>
@@ -72,7 +74,6 @@ var RegisterRequest = React.createClass({
 
                 <div style={{marginTop:"10px"}} />
                 <ButtonPrimary label={"🔒 Create Account"} onClick={this.handleClick_Submit} />
-                {this.getErrorMessage()}
             </div>
         )
     },

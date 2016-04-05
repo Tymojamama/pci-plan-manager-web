@@ -28,3 +28,12 @@ app.use('/', require('./server/routers/web'));
 
 app.listen(80);
 console.log('Magic happens on port 80');
+
+/*
+    More basic/clear home dashboard.
+    Maybe 3 or 6 buttons
+     - Let's work on tasks
+     - Let's update plan information
+     - Review meetings
+     - etc...
+*/

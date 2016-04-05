@@ -1,22 +1,22 @@
 var React = require('react');
 var Style = require('./Style.jsx');
-var Parameter = require('./Parameter.jsx');
+var Step = require('./Step.jsx');
 var ButtonPrimary = require('../Button/Index.jsx').Primary;
 
 var Steps = React.createClass({
   componentWillMount: function() {
-    this._action = this.props.action;
-    if (!this._action.parameters) {
-      this._action.parameters = [];
+    this.steps = this.props.steps;
+    if (!this.steps) {
+      this.steps = [];
     }
   },
 
   render: function() {
-    var parameters = (
+    var steps = (
       <div style={{
         padding: "10px 5px",
         margin: "10px 0",
-        backgroundColor: "#ccc",
+        backgroundColor: "#f1f4f6",
         borderLeft: "3px solid #666666"
       }} className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div className="container-fluid">
@@ -24,7 +24,7 @@ var Steps = React.createClass({
             <div className="row-fluid">
               <span className="col-lg-4 col-md-4 hidden-sm hidden-xs"></span>
               <span className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <div>{"No parameters have been added to this action item"}</div>
+                <div>{"No steps have been added to this action item"}</div>
               </span>
             </div>
           </div>
@@ -32,9 +32,16 @@ var Steps = React.createClass({
       </div>
     );
 
-    if (this.props.action.parameters && this.props.action.parameters.length > 0) {
-      parameters = this.props.action.parameters.map(function(doc) {
-        return (<Parameter key={doc._id} parameter={doc} handleChange={this.handleChange_Parameter} handleRemove={this.handleClick_Remove}/>)
+    if (this.props.steps && this.props.steps.length > 0) {
+      steps = this.props.steps.map(function(step, i) {
+        step.index = i;
+        return (
+          <Step
+            key={i}
+            step={step}
+            handleChange={this.handleChange_Step}
+            handleRemove={this.handleClick_Remove}/>
+        )
       }.bind(this));
     }
 
@@ -43,13 +50,18 @@ var Steps = React.createClass({
         margin: "0",
         padding: "0"
       }}>
-        <div className="row">
+        <div
+          className="row"
+          style={{
+            margin: "0",
+            padding: "0"
+          }}>
           <div className="row-fluid">
             <span style={{
               margin: "5px 0",
               fontSize: "22px"
             }} className="col-lg-8 col-md-8 col-sm-6 col-xs-6">
-              <b>{"Parameters"}</b>
+              <b>{"Steps"}</b>
             </span>
             <span style={{
               margin: "5px 0"
@@ -63,35 +75,27 @@ var Steps = React.createClass({
             </span>
           </div>
           <div className="row-fluid">
-            {parameters}
+            {steps}
           </div>
         </div>
       </div>
     )
   },
 
-  handleChange_Parameter: function(parameter) {
-    for (var i = 0; i < this.props.action.parameters.length; i++) {
-      if (this.props.action.parameters[i]._id === parameter._id) {
-        this._action.parameters[i] = parameter;
-        return this.props.handleChange(this._action);
-      }
-    }
+  handleChange_Step: function(step) {
+    this.steps[step.index] = step;
+    this.props.handleChange(this.steps);
   },
 
-  handleClick_Remove: function(parameter) {
-    for (var i = 0; i < this.props.action.parameters.length; i++) {
-      if (this.props.action.parameters[i]._id === parameter._id) {
-        this._action.parameters.splice(i, 1);
-        return this.props.handleChange(this._action);
-      }
-    }
+  handleClick_Remove: function(step) {
+    this.steps.splice(step.index, 1);
+    this.props.handleChange(this.steps);
   },
 
   handleClick_Add: function() {
-    var id = Math.floor(Math.random() * (1000000000 - 0)) + 0;
-    this._action.parameters.push({_id: id});
-    return this.props.handleChange(this._action);
+    var index = Math.floor(Math.random() * (1000000000 - 0)) + 0;
+    this.steps.push({index: index});
+    return this.props.handleChange(this.steps);
   }
 });
 

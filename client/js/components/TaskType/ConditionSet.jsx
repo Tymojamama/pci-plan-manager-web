@@ -1,4 +1,5 @@
 var React = require('react');
+var $ = require('jquery');
 var Style = require('./Style.jsx');
 var Conditions = require('./Conditions.jsx');
 var Steps = require('./Steps.jsx');
@@ -29,14 +30,24 @@ var ConditionSet = React.createClass({
             padding: "0"
           }}>
             <div className="row-fluid">
-              <Conditions
-                conditions={this.props.conditionSet.conditions}
-                handleChange={this.handleChange_Conditions} />
+              <h3 style={{margin:"5px 0"}}>
+                {"Condition Set " + (this.props.conditionSet.index + 1)}
+              </h3>
+              <a style={{margin:"5px 0",fontSize:"16px"}} onClick={this.handleClick_Heading}>
+                open/close
+              </a>
             </div>
-            <div className="row-fluid padding-top-15">
-              <Steps
-                steps={this.props.conditionSet.steps}
-                handleChange={this.handleChange_Steps} />
+            <div id={this.getId()} style={{display:"none"}}>
+              <div className="row-fluid padding-top-15">
+                <Conditions
+                  conditions={this.props.conditionSet.conditions}
+                  handleChange={this.handleChange_Conditions} />
+              </div>
+              <div className="row-fluid padding-top-15">
+                <Steps
+                  steps={this.props.conditionSet.steps}
+                  handleChange={this.handleChange_Steps} />
+              </div>
             </div>
           </div>
         </div>
@@ -68,6 +79,14 @@ var ConditionSet = React.createClass({
         </div>
       </div>
     )
+  },
+
+  getId: function () {
+    return "condition-set-" + this.props.conditionSet.index;
+  },
+
+  handleClick_Heading: function () {
+    $("#" + this.getId()).slideToggle();
   },
 
   handleChange_Conditions: function (conditions) {

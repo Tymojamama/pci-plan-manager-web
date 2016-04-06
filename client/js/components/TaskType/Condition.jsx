@@ -32,7 +32,10 @@ var Condition = React.createClass({
               <span className="col-lg-4 col-md-4 hidden-sm hidden-xs text-right">Entity</span>
               <span className="hidden-lg hidden-md col-sm-12 col-xs-12 text-left">Entity</span>
               <span className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <input style={Style.input} type="text" value={this.props.condition.label} onChange={this.handleChange_Entity}/>
+                <select style={Style.select} value={this.props.condition.entity} onChange={this.handleChange_Entity}>
+                  <option value=""></option>
+                  <option value="plan">Plan</option>
+                </select>
               </span>
             </div>
             <div className="row-fluid padding-top-15">

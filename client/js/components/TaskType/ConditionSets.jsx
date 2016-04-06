@@ -22,7 +22,10 @@ var ConditionSets = React.createClass({
         }}
         className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div className="container-fluid">
-          <div className="row">
+          <div className="row"
+            style={{
+              margin:"0"
+            }}>
             <div className="row-fluid">
               <span className="col-lg-4 col-md-4 hidden-sm hidden-xs"></span>
               <span className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
@@ -54,16 +57,21 @@ var ConditionSets = React.createClass({
           margin: "0",
           padding: "0"
         }}>
-        <div className="row">
+        <div className="row"
+          style={{
+            margin:"0"
+          }}>
           <div className="row-fluid">
             <span style={{
               margin: "5px 0",
-              fontSize: "22px"
+              fontSize: "22px",
+              padding: "0",
             }} className="col-lg-8 col-md-8 col-sm-6 col-xs-6">
               <b>{"Condition Sets"}</b>
             </span>
             <span style={{
-              margin: "5px 0"
+              margin: "5px 0",
+              padding: "0",
             }} className="col-lg-4 col-md-4 col-sm-6 col-xs-6">
               <span style={{
                 float: "right",

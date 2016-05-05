@@ -22,6 +22,7 @@ var Actions = require('./components/Actions/Index.jsx');
 var Plan = require('./components/Plan/Index.jsx');
 var PlanSearch = require('./components/Plan/Search.jsx');
 var PlanProfile = require('./components/Plan/Profile.jsx');
+var PlanInfo = require('./components/Plan/Info.jsx');
 var PlanTerms = require('./components/Plan/Terms.jsx');
 var PlanDocuments = require('./components/Plan/Documents.jsx');
 var PlanSettings = require('./components/Plan/Settings.jsx');
@@ -32,79 +33,78 @@ var TaskTypeSettings = require('./components/Settings/TaskTypeSettings.jsx');
 var Welcome = require('./components/Welcome/Index.jsx');
 var Settings = require('./components/Settings/Index.jsx');
 
-function handleUpdateRouter () {
-    var paths = window.location.pathname.split("/");
+function handleUpdateRouter() {
+  var paths = window.location.pathname.split("/");
 
-    if (window.location.pathname === "/") {
-        $("#header-navigation-summary").css({backgroundColor: "#da383c"});
-    } else if (paths.length === 2) {
-        $("#header-navigation-summary").css({backgroundColor: "#009933"});
-    } else if (paths.length === 3) {
-        $("#header-navigation-summary").css({backgroundColor: "#ffcc00"});
-    } else if (paths.length === 4) {
-        $("#header-navigation-summary").css({backgroundColor: "#0000cc"});
-    } else {
-        $("#header-navigation-summary").css({backgroundColor: "#da383c"});
-    }
+  if (window.location.pathname === "/") {
+    $("#header-navigation-summary").css({backgroundColor: "#da383c"});
+  } else if (paths.length === 2) {
+    $("#header-navigation-summary").css({backgroundColor: "#009933"});
+  } else if (paths.length === 3) {
+    $("#header-navigation-summary").css({backgroundColor: "#ffcc00"});
+  } else if (paths.length === 4) {
+    $("#header-navigation-summary").css({backgroundColor: "#0000cc"});
+  } else {
+    $("#header-navigation-summary").css({backgroundColor: "#da383c"});
+  }
 }
 
 var MobileNavigation = React.createClass({
-    render: function () {
-        var headerSpacingStyle = {
-            paddingTop: "60px"
-        };
-        return (
-            <div style={headerSpacingStyle} className="col-lg-8 col-md-12 col-sm-12 col-xs-12 col-centered">
-                <Navigation />
-            </div>
-        );
-    }
+  render: function() {
+    var headerSpacingStyle = {
+      paddingTop: "60px"
+    };
+    return (
+      <div style={headerSpacingStyle} className="col-lg-8 col-md-12 col-sm-12 col-xs-12 col-centered">
+        <Navigation/>
+      </div>
+    );
+  }
 });
 
 var App = React.createClass({
-	render: function () {
-		return (
-			<div>
-                <Header />
-				{this.props.children}
-				<Footer />
-			</div>
-		)
-	}
+  render: function() {
+    return (
+      <div>
+        <Header/>
+        {this.props.children}
+        <Footer/>
+      </div>
+    )
+  }
 });
 
 var Routes = (
-	 <Route path="/" component={App}>
-    	<IndexRoute component={Home} />
-        <Route path="fiduciary" component={FiduciaryOversight}>
-            <IndexRoute component={FiduciaryOversightHome} />
-            <Route path="investments" component={FiduciaryOversightInvestments} />
-            <Route path="vendors" component={FiduciaryOversightVendors} />
-            <Route path="administration" component={FiduciaryOversightAdministration} />
-        </Route>
-    	<Route path="welcome" component={Welcome} />
-        <Route path="navigation" component={MobileNavigation} />
-        <Route path="action" component={Actions} />
-        <Route path="plan" component={PlanSearch} />
-    	<Route path="plan/:id" component={Plan}>
-    		<IndexRoute component={PlanProfile} />
-    		<Route path="terms" component={PlanTerms} />
-    		<Route path="documents" component={PlanDocuments} />
-    		<Route path="settings" component={PlanSettings} />
-    	</Route>
-    	<Route path="home" component={Home} />
-        <Route path="login" component={Login} />
-        <Route path="profile" component={Profile} />
-        <Route path="settings" component={Settings}>
-            <IndexRoute component={UserSettings} />
-            <Route path="action" component={ActionSettings} />
-            <Route path="task-type" component={TaskTypeSettings} />
-            <Route path="task-category" component={TaskCategorySettings} />
-        </Route>
+  <Route path="/" component={App}>
+    <IndexRoute component={Home}/>
+    <Route path="fiduciary" component={FiduciaryOversight}>
+      <IndexRoute component={FiduciaryOversightHome}/>
+      <Route path="investments" component={FiduciaryOversightInvestments}/>
+      <Route path="vendors" component={FiduciaryOversightVendors}/>
+      <Route path="administration" component={FiduciaryOversightAdministration}/>
     </Route>
+    <Route path="welcome" component={Welcome}/>
+    <Route path="navigation" component={MobileNavigation}/>
+    <Route path="action" component={Actions}/>
+    <Route path="plan" component={PlanSearch}/>
+    <Route path="plan/:id" component={Plan}>
+      <IndexRoute component={PlanProfile}/>
+      <Route path="info" component={PlanInfo} />
+      <Route path="terms" component={PlanTerms} />
+      <Route path="documents" component={PlanDocuments} />
+      <Route path="settings" component={PlanSettings} />
+    </Route>
+    <Route path="home" component={Home}/>
+    <Route path="login" component={Login}/>
+    <Route path="profile" component={Profile}/>
+    <Route path="settings" component={Settings}>
+      <IndexRoute component={UserSettings}/>
+      <Route path="action" component={ActionSettings}/>
+      <Route path="task-type" component={TaskTypeSettings}/>
+      <Route path="task-category" component={TaskCategorySettings}/>
+    </Route>
+  </Route>
 );
 
 ReactDOM.render(
- 	<Router history={browserHistory} onUpdate={handleUpdateRouter} routes={Routes} />,
-	document.getElementById("container")
-);
+  <Router history={browserHistory} onUpdate={handleUpdateRouter} routes={Routes}/>, document.getElementById("container"));

@@ -35,6 +35,7 @@ var NavigationFeed = React.createClass({
                 <LinkItem label="🔖 Plan Fiduciary" link={"/plan/" + this.props.planId + "/fiduciary"} backgroundColor="#222222" backgroundColorHover="#0d0d0d" />
 
             	<Header label="🔦 Plan Navigation" />
+                <LinkItem label="Info" link={"/plan/" + this.props.planId + "/info"} backgroundColor="#0e2e47" backgroundColorHover="#081c2b" />
                 <LinkItem label="📜 Terms" link={"/plan/" + this.props.planId + "/terms"} backgroundColor="#0e2e47" backgroundColorHover="#081c2b" />
                 <LinkItem label="📂 Documents" link={"/plan/" + this.props.planId + "/documents"} backgroundColor="#0e2e47" backgroundColorHover="#081c2b" />
                 <LinkItem label="⚙ Settings" link={"/plan/" + this.props.planId + "/settings"} backgroundColor="#0e2e47" backgroundColorHover="#081c2b" />

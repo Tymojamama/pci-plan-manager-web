@@ -1,4 +1,5 @@
 var React = require('react');
+var $ = require('jquery');
 var Style = require('./Style.jsx');
 var Condition = require('./Condition.jsx');
 var ButtonPrimary = require('../Button/Index.jsx').Primary;
@@ -6,6 +7,7 @@ var ButtonPrimary = require('../Button/Index.jsx').Primary;
 var Conditions = React.createClass({
   componentWillMount: function() {
     this.conditions = this.props.conditions;
+    this.id = Math.floor(Math.random() * (1000000000 - 0)) + 0;
     if (!this.conditions) {
       this.conditions = [];
     }
@@ -61,13 +63,18 @@ var Conditions = React.createClass({
             padding: "0"
           }}>
           <div className="row-fluid">
-            <span style={{
-              margin: "5px 0",
-              fontSize: "22px"
-            }} className="col-lg-8 col-md-8 col-sm-6 col-xs-6">
+            <span
+              style={{
+                margin: "5px 0",
+                fontSize: "22px",
+                cursor:"pointer",
+              }}
+              className="col-lg-8 col-md-8 col-sm-6 col-xs-6"
+              onClick={this.handleClick_Heading}>
               <b>{"Conditions"}</b>
             </span>
-            <span style={{
+            <span
+              style={{
               margin: "5px 0"
             }} className="col-lg-4 col-md-4 col-sm-6 col-xs-6">
               <span style={{
@@ -78,12 +85,20 @@ var Conditions = React.createClass({
               </span>
             </span>
           </div>
-          <div className="row-fluid">
+          <div id={this.getId()} style={{display:"none"}} className="row-fluid">
             {conditions}
           </div>
         </div>
       </div>
     )
+  },
+
+  getId: function () {
+    return "conditions-" + this.id;
+  },
+
+  handleClick_Heading: function () {
+    $("#" + this.getId()).slideToggle();
   },
 
   handleChange_Condition: function(condition) {

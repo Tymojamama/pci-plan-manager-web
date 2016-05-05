@@ -1,6 +1,7 @@
 var React = require('react');
 var Style = require('./Style.jsx');
 var Attributes = require('./Attributes.jsx');
+var Recursions = require('./Recursions.jsx');
 var ButtonDanger = require('../Button/Index.jsx').Danger;
 
 var Step = React.createClass({
@@ -35,16 +36,14 @@ var Step = React.createClass({
             padding: "0"
           }}>
             <div className="row-fluid">
-              <span className="col-lg-4 col-md-4 hidden-sm hidden-xs text-right">Name</span>
-              <span className="hidden-lg hidden-md col-sm-12 col-xs-12 text-left">Name</span>
-              <span className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+              <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">Name</span>
+              <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <input style={Style.input} type="text" value={this.props.step.name} onChange={this.handleChange_Name}/>
               </span>
             </div>
             <div className="row-fluid padding-top-15">
-              <span className="col-lg-4 col-md-4 hidden-sm hidden-xs text-right">Entity</span>
-              <span className="hidden-lg hidden-md col-sm-12 col-xs-12 text-left">Entity</span>
-              <span className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+              <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">Entity</span>
+              <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <select style={Style.select} value={this.props.step.entity} onChange={this.handleChange_Entity}>
                   <option value=""></option>
                   <option value="task">Task</option>
@@ -52,9 +51,8 @@ var Step = React.createClass({
               </span>
             </div>
             <div className="row-fluid padding-top-15">
-              <span className="col-lg-4 col-md-4 hidden-sm hidden-xs text-right">Type</span>
-              <span className="hidden-lg hidden-md col-sm-12 col-xs-12 text-left">Type</span>
-              <span className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+              <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">Type</span>
+              <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <select style={Style.select} value={this.props.step.type} onChange={this.handleChange_Type}>
                   <option value=""></option>
                   <option value="create">Create</option>
@@ -65,9 +63,12 @@ var Step = React.createClass({
               </span>
             </div>
             <div className="row-fluid padding-top-15">
-              <span className="col-lg-4 col-md-4 hidden-sm hidden-xs text-right"></span>
-              <span className="hidden-lg hidden-md col-sm-12 col-xs-12 text-left"></span>
-              <span className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+              <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <Recursions recursions={this.props.step.recursion} handleChange={this.handleChange_Recursion}/>
+              </span>
+            </div>
+            <div className="row-fluid padding-top-15">
+              <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <Attributes attributes={this.props.step.attributes} handleChange={this.handleChange_Attributes}/>
               </span>
             </div>
@@ -109,6 +110,11 @@ var Step = React.createClass({
 
   handleChange_Type: function (event) {
     this.step.type = event.target.value;
+    this.props.handleChange(this.step);
+  },
+
+  handleChange_Recursion: function (recursion) {
+    this.step.recursion = recursion;
     this.props.handleChange(this.step);
   },
 

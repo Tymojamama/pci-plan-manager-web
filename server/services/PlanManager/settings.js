@@ -1,21 +1,14 @@
 module.exports = function () {
+  var result = {};
   switch(process.env.NODE_ENV){
     case 'development':
-      return {
-        host: "localhost",
-        port: 8080
-      }
-
-    case 'production':
-      return {
-        host: "ec2-52-37-104-20.us-west-2.compute.amazonaws.com",
-        port: 80
-      }
-
+      result.host = "localhost";
+      result.port = 8080;
+      break;
     default:
-      return {
-        host: "ec2-52-37-104-20.us-west-2.compute.amazonaws.com",
-        port: 80
-      }
+      result.host = "ec2-52-37-104-20.us-west-2.compute.amazonaws.com";
+      result.port = 80;
+      break;
   }
+  return result;
 };

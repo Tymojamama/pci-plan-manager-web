@@ -30,12 +30,9 @@ var ConditionSet = React.createClass({
             padding: "0"
           }}>
             <div className="row-fluid">
-              <h3 style={{margin:"5px 0"}}>
+              <h3 style={{margin:"5px 0",cursor:"pointer"}} onClick={this.handleClick_Heading}>
                 {"Condition Set " + (this.props.conditionSet.index + 1)}
               </h3>
-              <a style={{margin:"5px 0",fontSize:"16px"}} onClick={this.handleClick_Heading}>
-                open/close
-              </a>
             </div>
             <div id={this.getId()} style={{display:"none"}}>
               <div className="row-fluid padding-top-15">

@@ -1,7 +1,7 @@
 var React = require('react');
 var $ = require('jquery');
 var Style = require('./Style.jsx');
-var Attribute = require('./Attribute.jsx');
+var Attribute = require('./ConditionAttribute.jsx');
 var ButtonPrimary = require('../Button/Index.jsx').Primary;
 
 var Attributes = React.createClass({
@@ -15,12 +15,14 @@ var Attributes = React.createClass({
 
   render: function() {
     var attributes = (
-      <div style={{
-        padding: "10px 5px",
-        margin: "10px 0",
-        backgroundColor: "#ccc",
-        borderLeft: "3px solid #666666"
-      }} className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div
+        style={{
+          padding: "10px 5px",
+          margin: "10px 0",
+          backgroundColor: "#ccc",
+          borderLeft: "3px solid #666666"
+        }}
+        className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div className="container-fluid">
           <div className="row">
             <div className="row-fluid">
@@ -67,13 +69,16 @@ var Attributes = React.createClass({
               onClick={this.handleClick_Heading}>
               <b>{"Attributes"}</b>
             </span>
-            <span style={{
-              margin: "5px 0"
-            }} className="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-              <span style={{
-                float: "right",
-                cursor: "pointer"
-              }}>
+            <span
+              style={{
+                margin: "5px 0"
+              }}
+              className="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+              <span
+                style={{
+                  float: "right",
+                  cursor: "pointer"
+                }}>
                 <ButtonPrimary label={"Add"} onClick={this.handleClick_Add}/>
               </span>
             </span>

@@ -1,20 +1,20 @@
 var React = require('react');
 var $ = require('jquery');
 var Style = require('./Style.jsx');
-var Attribute = require('./Attribute.jsx');
+var Recursion = require('./Recursion.jsx');
 var ButtonPrimary = require('../Button/Index.jsx').Primary;
 
-var Attributes = React.createClass({
+var Recursions = React.createClass({
   componentWillMount: function() {
-    this.attributes = this.props.attributes;
+    this.recursions = this.props.recursions;
     this.id = Math.floor(Math.random() * (1000000000 - 0)) + 0;
-    if (!this.attributes) {
-      this.attributes = [];
+    if (!this.recursions) {
+      this.recursions = [];
     }
   },
 
   render: function() {
-    var attributes = (
+    var recursions = (
       <div style={{
         padding: "10px 5px",
         margin: "10px 0",
@@ -26,7 +26,7 @@ var Attributes = React.createClass({
             <div className="row-fluid">
               <span className="col-lg-4 col-md-4 hidden-sm hidden-xs"></span>
               <span className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                <div>{"No attributes have been added to this step"}</div>
+                <div>{"No recursions have been added to this step"}</div>
               </span>
             </div>
           </div>
@@ -34,14 +34,14 @@ var Attributes = React.createClass({
       </div>
     );
 
-    if (this.props.attributes && this.props.attributes.length > 0) {
-      attributes = this.props.attributes.map(function(attribute, i) {
-        attribute.index = i;
+    if (this.props.recursions && this.props.recursions.length > 0) {
+      recursions = this.props.recursions.map(function(recursion, i) {
+        recursion.index = i;
         var result = (
-          <Attribute
+          <Recursion
             key={i}
-            attribute={attribute}
-            handleChange={this.handleChange_Attribute}
+            recursion={recursion}
+            handleChange={this.handleChange_Recursion}
             handleRemove={this.handleClick_Remove} />
         )
         return result;
@@ -65,21 +65,24 @@ var Attributes = React.createClass({
               }}
               className="col-lg-8 col-md-8 col-sm-6 col-xs-6"
               onClick={this.handleClick_Heading}>
-              <b>{"Attributes"}</b>
+              <b>{"Recursions"}</b>
             </span>
-            <span style={{
-              margin: "5px 0"
-            }} className="col-lg-4 col-md-4 col-sm-6 col-xs-6">
-              <span style={{
-                float: "right",
-                cursor: "pointer"
-              }}>
+            <span
+              style={{
+                margin: "5px 0"
+              }}
+              className="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+              <span
+                style={{
+                  float: "right",
+                  cursor: "pointer"
+                }}>
                 <ButtonPrimary label={"Add"} onClick={this.handleClick_Add}/>
               </span>
             </span>
           </div>
           <div id={this.getId()} style={{display:"none"}} className="row-fluid">
-            {attributes}
+            {recursions}
           </div>
         </div>
       </div>
@@ -87,28 +90,28 @@ var Attributes = React.createClass({
   },
 
   getId: function () {
-    return "attributes-" + this.id;
+    return "recursions-" + this.id;
   },
 
   handleClick_Heading: function () {
     $("#" + this.getId()).slideToggle();
   },
 
-  handleChange_Attribute: function (attribute) {
-    this.attributes[attribute.index]  = attribute;
-    this.props.handleChange(this.attributes);
+  handleChange_Recursion: function (recursion) {
+    this.recursions[recursion.index]  = recursion;
+    this.props.handleChange(this.recursions);
   },
 
-  handleClick_Remove: function (attribute) {
-    this.attributes.splice(attribute.index, 1);
-    this.props.handleChange(this.attributes);
+  handleClick_Remove: function (recursion) {
+    this.recursions.splice(recursion.index, 1);
+    this.props.handleChange(this.recursions);
   },
 
   handleClick_Add: function () {
     var index = Math.floor(Math.random() * (1000000000 - 0)) + 0;
-    this.attributes.push({index: index});
-    return this.props.handleChange(this.attributes);
+    this.recursions.push({index: index});
+    return this.props.handleChange(this.recursions);
   },
 });
 
-module.exports = Attributes;
+module.exports = Recursions;

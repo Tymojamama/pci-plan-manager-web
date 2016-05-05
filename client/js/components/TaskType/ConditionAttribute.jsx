@@ -22,14 +22,18 @@ var Attribute = React.createClass({
           borderLeft: "3px solid #666666"
         }}
         className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div className="container-fluid" style={{
-          margin: "0",
-          padding: "0"
-        }}>
-          <div className="row" style={{
+        <div
+          className="container-fluid"
+          style={{
             margin: "0",
             padding: "0"
           }}>
+          <div
+            className="row"
+            style={{
+              margin: "0",
+              padding: "0"
+            }}>
             <div className="row-fluid">
               <span className="col-lg-4 col-md-4 hidden-sm hidden-xs text-right">Name</span>
               <span className="hidden-lg hidden-md col-sm-12 col-xs-12 text-left">Name</span>
@@ -39,6 +43,25 @@ var Attribute = React.createClass({
                   type="text"
                   value={this.props.attribute.name}
                   onChange={this.handleChange_Name} />
+              </span>
+            </div>
+            <div className="row-fluid padding-top-15">
+              <span className="col-lg-4 col-md-4 hidden-sm hidden-xs text-right">Comparison</span>
+              <span className="hidden-lg hidden-md col-sm-12 col-xs-12 text-left">Comparison</span>
+              <span className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <select style={Style.select} value={this.props.attribute.comparisonType} onChange={this.handleChange_Comparison}>
+                  <option value=""></option>
+                  <option value="equal">Equal to</option>
+                  <option value="not equal">Not equal to</option>
+                  <option value="contains">Contains</option>
+                  <option value="not contains">Does not contain</option>
+                  <option value="between">Between</option>
+                  <option value="not between">Not between</option>
+                  <option value="greater than">Greater than</option>
+                  <option value="greater than or equal to">Greater than or equal to</option>
+                  <option value="less than">Less than</option>
+                  <option value="less than or equal to">Less than or equal to</option>
+                </select>
               </span>
             </div>
             <div className="row-fluid padding-top-15">

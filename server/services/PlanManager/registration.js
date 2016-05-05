@@ -6,6 +6,7 @@ function Registrar () {
     this.callback;
     this.requestOptions = {};
     this.chunks;
+    this.settings = new settings();
 
     this.httpOnData = function (chunk) {
         if (!this.chunks) {
@@ -48,8 +49,8 @@ function Registrar () {
 
 Registrar.prototype.requestRegistration = function (options, callback) {
     this.requestOptions = {
-        host: settings.host,
-        port: settings.port,
+        host: this.settings.host,
+        port: this.settings.port,
         path: '/register',
         method: 'POST',
         headers: {
@@ -67,8 +68,8 @@ Registrar.prototype.requestRegistration = function (options, callback) {
 // authenticates and gets access token
 Registrar.prototype.register = function(options, callback) {
     this.requestOptions = {
-        host: settings.host,
-        port: settings.port,
+        host: this.settings.host,
+        port: this.settings.port,
         path: '/register/' + options.id,
         method: 'POST',
         headers: {

@@ -11,28 +11,26 @@ module.exports = function (app) {
 		console.log('password',password);
 
 		if (email && password) {
-			var options = {
-				email: email,
-				password: password,
-			}
+			var options = {};
+			options.email = email;
+			options.password = password;
 
 			PlanManagerService.login(options, function (chunks) {
+				console.log('login callback');
 				var json = JSON.parse(chunks);
 				if (json.success === false) {
+					console.log("no success");
 					return res.redirect('/login?success=false');
 				}
 
 				req.session.email = email;
 				res.cookie("accessToken", json.accessToken);
-
-				if (req.session.requestedUrl) {
-					res.redirect(req.session.requestedUrl);
-				} else {
-					res.redirect('/');
-				}
+				console.log("success");
+				return res.redirect('/');
 			});
 		} else {
-			res.redirect('/login?success=false');
+			console.log("no email, password");
+			res.redirect('/');
 		}
 	});
 

@@ -141,6 +141,7 @@ var Task = React.createClass({
   },
 
   handleClickSave: function() {
+    console.log(this.state.taskType);
     if (this.props.id) {
       TaskTypeActions.update(this.state.taskType);
     } else {

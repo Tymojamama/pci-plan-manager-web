@@ -1,6 +1,7 @@
 var React = require('react');
+var $ = require('jquery');
 var Style = require('./Style.jsx');
-var Attributes = require('./Attributes.jsx');
+var Attributes = require('./ConditionAttributes.jsx');
 var ButtonDanger = require('../Button/Index.jsx').Danger;
 
 var Condition = React.createClass({
@@ -29,9 +30,8 @@ var Condition = React.createClass({
             padding: "0"
           }}>
             <div className="row-fluid">
-              <span className="col-lg-4 col-md-4 hidden-sm hidden-xs text-right">Entity</span>
-              <span className="hidden-lg hidden-md col-sm-12 col-xs-12 text-left">Entity</span>
-              <span className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+              <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">Entity</span>
+              <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <select style={Style.select} value={this.props.condition.entity} onChange={this.handleChange_Entity}>
                   <option value=""></option>
                   <option value="plan">Plan</option>
@@ -39,9 +39,7 @@ var Condition = React.createClass({
               </span>
             </div>
             <div className="row-fluid padding-top-15">
-              <span className="col-lg-4 col-md-4 hidden-sm hidden-xs text-right"></span>
-              <span className="hidden-lg hidden-md col-sm-12 col-xs-12 text-left"></span>
-              <span className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+              <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <Attributes attributes={this.props.condition.attributes} handleChange={this.handleChange_Attributes}/>
               </span>
             </div>
@@ -53,8 +51,7 @@ var Condition = React.createClass({
               <div style={{
                 padding: "10px 0 0 0"
               }} className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <span className="col-lg-4 col-md-4 hidden-sm hidden-xs"></span>
-                <span className="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div style={{
                     margin: "5px 0",
                     float: "right",

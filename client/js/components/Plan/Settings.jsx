@@ -1,30 +1,34 @@
 var React = require('react');
+var moment = require('moment');
 var browserHistory = require('react-router').browserHistory;
 var Style = require('./Style.jsx');
+var Input = require('../Form/Index.jsx').Input;
+var Label = require('../Form/Index.jsx').Label;
+var Select = require('../Form/Index.jsx').Select;
+var TextArea = require('../Form/Index.jsx').TextArea;
 var PlanActions = require('../../actions/PlanActions.js');
 var PlanStore = require('../../stores/PlanStore.js');
 
 function getPlanProfileState(id, callback) {
-  PlanStore.getOne(id, function(json) {
-    if (!json.duties) { json.duties = {} }
-    if (!json.duties.investment) { json.duties.investment = {} }
-    callback(json);
+  PlanStore.getOne(id, function(plan) {
+    if (plan.planStartDate) {
+      plan.planStartDate = moment(plan.planStartDate).format("MM/DD/YYYY");
+    }
+    callback(plan);
   })
 }
 
 var PlanSettings = React.createClass({
   getInitialState: function () {
     this.plan = {};
-    this.plan.duties = {};
-    this.plan.duties.investment = {};
     return {
       plan: this.plan,
     }
   },
 
   componentWillMount: function() {
-    getPlanProfileState(this.props.params.id, function(state) {
-      this.plan = state;
+    getPlanProfileState(this.props.params.id, function(plan) {
+      this.plan = plan;
       this.setState({plan:this.plan});
     }.bind(this));
   },
@@ -39,93 +43,174 @@ var PlanSettings = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <div className="container-fluid" style={Style.heading}>
-          <div className="row">
-            <span className="text-uppercase">Plan Settings</span>
-          </div>
+      <div className="container-fluid">
+        <div style={Style.heading} className="row">
+          <span className="text-uppercase">Plan Settings</span>
         </div>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="row padding-top-05">
-              <span className="col-lg-3 col-md-3 hidden-sm hidden-xs text-right">Name</span>
-              <span className="hidden-lg hidden-md col-sm-12 col-xs-12 text-left">Name</span>
-              <span className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                <input style={Style.input} type="text" value={this.state.plan.name} onChange={this.handleChange_Name}/>
-              </span>
-              <span className="col-lg-2 col-md-2 hidden-sm hidden-xs"/>
-            </div>
-            <div className="row padding-top-05">
-              <span className="col-lg-3 col-md-3 hidden-sm hidden-xs text-right">Type</span>
-              <span className="hidden-lg hidden-md col-sm-12 col-xs-12 text-left">Type</span>
-              <span className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                <input style={Style.input} type="text" value={this.state.plan.planType} onChange={this.handleChange_Type}/>
-              </span>
-              <span className="col-lg-2 col-md-2 hidden-sm hidden-xs"/>
-            </div>
-            <div className="row padding-top-05">
-              <span className="col-lg-3 col-md-3 hidden-sm hidden-xs text-right">Asset Value</span>
-              <span className="hidden-lg hidden-md col-sm-12 col-xs-12 text-left">Asset Value</span>
-              <span className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                <input style={Style.input} type="text" value={this.state.plan.assetValue} onChange={this.handleChange_AssetValue}/>
-              </span>
-              <span className="col-lg-2 col-md-2 hidden-sm hidden-xs"/>
-            </div>
-            <div className="row padding-top-05">
-              <span className="col-lg-3 col-md-3 hidden-sm hidden-xs text-right">Participant Entry Frequency</span>
-              <span className="hidden-lg hidden-md col-sm-12 col-xs-12 text-left">Participant Entry Frequency</span>
-              <span className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                <select style={Style.input} value={this.state.plan.participantEntryFrequency} onChange={this.handleChange_ParticipantEntryFrequency}>
-                  <option value=""></option>
-                  <option value="annual">{"Annual"}</option>
-                  <option value="semi-annual">{"Semi-annual"}</option>
-                  <option value="quarterly">{"Quarterly"}</option>
-                </select>
-              </span>
-              <span className="col-lg-2 col-md-2 hidden-sm hidden-xs"/>
-            </div>
-            <div className="row padding-top-05">
-              <span className="col-lg-3 col-md-3 hidden-sm hidden-xs text-right">Investment Delegation Type</span>
-              <span className="hidden-lg hidden-md col-sm-12 col-xs-12 text-left">Investment Delegation Type</span>
-              <span className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                <select style={Style.input} value={this.state.plan.duties.investment.delegationType} onChange={this.handleChange_InvestmentType}>
-                  <option value=""></option>
-                  <option value="3(21)">{"3(21)"}</option>
-                  <option value="3(38)">{"3(38)"}</option>
-                </select>
-              </span>
-              <span className="col-lg-2 col-md-2 hidden-sm hidden-xs"/>
-            </div>
-            <div className="row padding-top-05">
-              <span className="col-lg-3 col-md-3 hidden-sm hidden-xs text-right">Description</span>
-              <span className="hidden-lg hidden-md col-sm-12 col-xs-12 text-left">Description</span>
-              <span className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                <textarea style={Style.textArea} value={this.state.plan.description} onChange={this.handleDescriptionChange}></textarea>
-              </span>
-              <span className="col-lg-2 col-md-2 hidden-sm hidden-xs"/>
-            </div>
-          </div>
+        <div className="row">
+          <Label
+            label={"Name"}
+            isRequired={true} />
+          <Input
+            type={"text"}
+            attribute={"name"}
+            value={this.plan.name}
+            onChange={this.handleChange_Attribute} />
         </div>
-        <div className="container-fluid">
-          <div className="row padding-top-05">
-            <span className="col-lg-3 col-md-3 col-sm-12 col-xs-12"></span>
-            <span className="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-              <div className="btn btn-primary" style={Style.saveButton} onClick={this.saveChanges}>Save</div>
-              <div className="btn btn-default" onClick={this.cancelChanges}>Cancel</div>
-            </span>
-            <span className="col-lg-2 col-md-2 hidden-sm hidden-xs"/>
+        <div className="row">
+          <Label
+            label={"Plan Sponsor Name"}
+            isRequired={false} />
+          <Input
+            type={"text"}
+            attribute={"planSponsorName"}
+            value={this.plan.planSponsorName}
+            onChange={this.handleChange_Attribute} />
+        </div>
+        <div className="row">
+          <Label
+            label={"Asset Value"}
+            isRequired={false} />
+          <Input
+            type={"text"}
+            attribute={"assetValue"}
+            value={this.plan.assetValue}
+            onChange={this.handleChange_Attribute} />
+        </div>
+        <div className="row">
+          <Label
+            label={"Plan Start Date"}
+            isRequired={false} />
+          <Input
+            type={"text"}
+            attribute={"planStartDate"}
+            value={this.plan.planStartDate}
+            onChange={this.handleChange_Attribute} />
+        </div>
+        <div className="row">
+          <Label
+            label={"Participant Entry Frequency"}
+            isRequired={false} />
+          <Select
+            options={["Annual","Semi-annual","Quarterly"]}
+            attribute={"participantEntryFrequency"}
+            value={this.plan.participantEntryFrequency}
+            onChange={this.handleChange_Attribute} />
+        </div>
+        <div className="row">
+          <Label
+            label={"Has Employer Contributions"}
+            isRequired={false} />
+          <Select
+            options={["true","false"]}
+            attribute={"employerContributions"}
+            value={this.plan.employerContributions}
+            onChange={this.handleChange_Attribute} />
+        </div>
+        <div className="row">
+          <Label
+            label={"Employer Contributions Schedule"}
+            isRequired={false} />
+          <Select
+            options={["Pay Period","Plan Year"]}
+            attribute={"employerContributionSchedule"}
+            value={this.plan.employerContributionSchedule}
+            onChange={this.handleChange_Attribute} />
+        </div>
+        <div className="row">
+          <Label
+            label={"Is Safe Harbor Plan"}
+            isRequired={false} />
+          <Select
+            options={["true","false"]}
+            attribute={"isSafeHarbor"}
+            value={this.plan.isSafeHarbor}
+            onChange={this.handleChange_Attribute} />
+        </div>
+        <div className="row">
+          <Label
+            label={"Allows Loans"}
+            isRequired={false} />
+          <Select
+            options={["true","false"]}
+            attribute={"allowsLoans"}
+            value={this.plan.allowsLoans}
+            onChange={this.handleChange_Attribute} />
+        </div>
+        <div className="row">
+          <Label
+            label={"Is Auditable"}
+            isRequired={false} />
+          <Select
+            options={["true","false"]}
+            attribute={"isAuditable"}
+            value={this.plan.isAuditable}
+            onChange={this.handleChange_Attribute} />
+        </div>
+        <div className="row">
+          <Label
+            label={"Is Auditable"}
+            isRequired={false} />
+          <Select
+            options={["true","false"]}
+            attribute={"isAuditable"}
+            value={this.plan.isAuditable}
+            onChange={this.handleChange_Attribute} />
+        </div>
+        <div className="row">
+          <Label
+            label={"Is Investment Delegated"}
+            isRequired={false} />
+          <Select
+            options={["true","false"]}
+            attribute={"isInvestmentDelegated"}
+            value={this.plan.isInvestmentDelegated}
+            onChange={this.handleChange_Attribute} />
+        </div>
+        <div className="row">
+          <Label
+            label={"Investment Delegation Type"}
+            isRequired={false} />
+          <Select
+            options={["3(21)","3(38)"]}
+            attribute={"investmentDelegationType"}
+            value={this.plan.investmentDelegationType}
+            onChange={this.handleChange_Attribute} />
+        </div>
+        <div className="row">
+          <Label
+            label={"Description"}
+            isRequired={true} />
+          <TextArea
+            attribute={"description"}
+            value={this.plan.description}
+            onChange={this.handleChange_Attribute} />
+        </div>
+        <div className="row">
+          <div
+            style={Style.saveButton}
+            className="btn btn-primary"
+            onClick={this.handleClick_Save}>
+            Save
+          </div>
+          <div
+            className="btn btn-default"
+            onClick={this.handleClick_Cancel}>
+            Cancel
           </div>
         </div>
       </div>
     )
   },
 
-  saveChanges: function() {
-    PlanActions.savePlan(this.state.plan);
+  handleClick_Save: function() {
+    var plan = this.state.plan;
+    plan.planStartDate = moment(plan.planStartDate).utc();
+    PlanActions.savePlan(plan);
     browserHistory.push("/plan/" + this.state.plan._id);
   },
 
-  cancelChanges: function () {
+  handleClick_Cancel: function () {
     if (confirm('Are you sure you wish to cancel? You will lose unsaved changes.')) {
       getPlanProfileState(this.props.params.id, function(state) {
         this.setState(state);
@@ -134,34 +219,11 @@ var PlanSettings = React.createClass({
     }
   },
 
-  handleChange_Name: function (event) {
-    this.plan.name = event.target.value;
-    this.setState({plan: this.plan});
-  },
-
-  handleChange_Type: function (event) {
-    this.plan.planType = event.target.value;
-    this.setState({plan: this.plan});
-  },
-
-  handleChange_AssetValue: function (event) {
-    this.plan.assetValue = event.target.value;
-    this.setState({plan: this.plan});
-  },
-
-  handleChange_ParticipantEntryFrequency: function (event) {
-    this.plan.participantEntryFrequency = event.target.value;
-    this.setState({plan: this.plan});
-  },
-
-  handleChange_InvestmentType: function (event) {
-    this.plan.duties.investment.delegationType = event.target.value;
-    this.setState({plan: this.plan});
-  },
-
-  handleChange_Description: function (event) {
-    this.plan.description = event.target.value;
-    this.setState({plan: this.plan});
+  handleChange_Attribute: function (attribute, value) {
+    var plan = this.state.plan;
+    plan[attribute] = value;
+    this.plan = plan;
+    this.setState({plan: plan});
   },
 
   handleChange_PlanStore: function () {

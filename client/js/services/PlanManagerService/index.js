@@ -5,6 +5,7 @@ var Service = {
 	actions: new Slave("action"),
 	plans: new Slave("plan"),
 	tasks: new Slave("task"),
+	documents: new Slave("document"),
 	taskCategories: new Slave("task-category"),
 	taskTypes: new Slave("task-type"),
 	users: new Slave("user"),

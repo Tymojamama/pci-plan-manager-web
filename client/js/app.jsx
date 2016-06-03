@@ -7,6 +7,7 @@ var Route = require('react-router').Route;
 var browserHistory = require('react-router').browserHistory;
 var IndexRoute = require('react-router').IndexRoute;
 
+var Document = require('./components/Document/Page.jsx');
 var Header = require('./components/Header/Index.jsx');
 var Footer = require('./components/Footer/Index.jsx');
 var FiduciaryOversight = require('./components/FiduciaryOversight/Index.jsx');
@@ -77,6 +78,7 @@ var App = React.createClass({
 var Routes = (
   <Route path="/" component={App}>
     <IndexRoute component={Home}/>
+    <Route path="document/:id" component={Document} />
     <Route path="fiduciary" component={FiduciaryOversight}>
       <IndexRoute component={FiduciaryOversightHome}/>
       <Route path="investments" component={FiduciaryOversightInvestments}/>

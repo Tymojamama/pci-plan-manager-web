@@ -3,73 +3,73 @@ var bodyParser = require('body-parser');
 
 var planManagerService = require('../../services/PlanManager');
 
-function Store (entity, schema) {
+function Store(entity, schema) {
 
-	var router = express.Router();
+  var router = express.Router();
 
-	router.use('/:id', function (req, res, next) {
-		if (!req.session || !req.cookies.accessToken) {
-			return next();
-		}
+  router.use('/:id', function(req, res, next) {
+    if (!req.session || !req.cookies.accessToken) {
+      return next();
+    }
 
-		var options = {
-			path: '/'+ entity + '/' + req.params.id,
-			method: req.method,
-	        headers: {
-	            email: req.session.email,
-	            accessToken: req.cookies.accessToken,
-	        },
-			body: req.body,
-		}
+    var options = {
+      path: '/' + entity + '/' + req.params.id,
+      method: req.method,
+      headers: {
+        email: req.session.email,
+        accessToken: req.cookies.accessToken,
+      },
+      body: req.body,
+    }
 
-	    planManagerService.execute(options, function (json) {
-	    	try {
-	    		if (res.json.success === false) {
-    				req.session.destroy(function (err) {
-    					console.log(err);
-    				});
-	    		} else {
-	    			return res.json(json);
-	    		}
-	    	} catch (err) {
-	    		console.log("Error executing plan manager service:", err);
-	    		return next();
-	    	}
-	    });
-	});
+    planManagerService.execute(options, function(json) {
+      try {
+        if (res.json.success === false) {
+          req.session.destroy(function(err) {
+            console.log(err);
+          });
+        } else {
+          return res.json(json);
+        }
+      } catch (err) {
+        console.log("Error executing plan manager service:", err);
+        return next();
+      }
+    });
+  });
 
-	router.use('/', function (req, res, next) {
-		if (!req.session || !req.cookies.accessToken) {
-			return next();
-		}
+  router.use('/', function(req, res, next) {
+    if (!req.session || !req.cookies.accessToken) {
+      return next();
+    }
 
-		var options = {
-			path: '/' + entity + '/',
-			method: req.method,
-	        headers: {
-	            email: req.session.email,
-	            accessToken: req.cookies.accessToken,
-	        },
-			body: req.body,
-		}
+    var options = {
+      path: '/' + entity + '/',
+      method: req.method,
+      headers: {
+        email: req.session.email,
+        accessToken: req.cookies.accessToken,
+      },
+      body: req.body,
+    }
 
-	    planManagerService.execute(options, function (json) {
-	    	try {
-	    		if (res.json.success === false) {
-	    			req.session.destroy(function (err) {
-	    				console.log(err);
-	    			});
-	    		} else {
-	    			return res.json(json);
-	    		}
-	    	} catch (err) {
-	    		console.log("Error executing plan manager service:", err);
-	    		return next();
-	    	}
-	    });
-	});
+    planManagerService.execute(options, function(json) {
+      try {
+        if (res.json.success === false) {
+          req.session.destroy(function(err) {
+            console.log(err);
+          });
+        } else {
+          return res.json(json);
+        }
+      } catch (err) {
+        console.log("Error executing plan manager service:", err);
+        return next();
+      }
+    });
+  });
 
-	return router;
+  return router;
 
 }
 

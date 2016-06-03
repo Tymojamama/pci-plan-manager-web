@@ -10,6 +10,22 @@ var FormInput = React.createClass({
   },
 
   render: function() {
+    if (this.props.isDisabled === true) {
+      return (
+        <input
+          style={this.getStyle()}
+          value={this.props.value}
+          type={this.props.type}
+          placeholder={this.props.placeholder}
+          onMouseEnter={this.handleMouseEnter}
+          onMouseLeave={this.handleMouseLeave}
+          onFocus={this.handleFocus}
+          onBlur={this.handleBlur}
+          onChange={this.handleChange}
+          disabled />
+      )
+    }
+
     return (
       <input
         style={this.getStyle()}
@@ -26,7 +42,9 @@ var FormInput = React.createClass({
 
   getStyle: function () {
     var style = Style.input;
-    if (this.state.isHovered === true) {
+    if (this.props.isDisabled === true) {
+      style = Style.inputDisabled;
+    } else if (this.state.isHovered === true) {
       style = Style.inputHovered;
       if (this.state.isFocused === true) {
         style = Style.inputHoveredFocused
@@ -72,6 +90,9 @@ var FormInput = React.createClass({
 
   handleChange: function (event) {
     var value = event.target.value;
+    if (this.props.isDisabled === true) {
+      return;
+    }
     if (this.props.attribute) {
       this.props.onChange(this.props.attribute, value);
     } else {

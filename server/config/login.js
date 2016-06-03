@@ -7,9 +7,6 @@ module.exports = function (app) {
 		var email = req.body.email;
 		var password = req.body.password;
 
-		console.log('email',email);
-		console.log('password',password);
-
 		if (email && password) {
 			var options = {};
 			options.email = email;

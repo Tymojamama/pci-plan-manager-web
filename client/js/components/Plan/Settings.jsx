@@ -8,6 +8,7 @@ var Select = require('../Form/Index.jsx').Select;
 var TextArea = require('../Form/Index.jsx').TextArea;
 var PlanActions = require('../../actions/PlanActions.js');
 var PlanStore = require('../../stores/PlanStore.js');
+var TaskTypeService = require('../../services/TaskTypeService');
 
 function getPlanProfileState(id, callback) {
   PlanStore.getOne(id, function(plan) {
@@ -198,9 +199,22 @@ var PlanSettings = React.createClass({
             onClick={this.handleClick_Cancel}>
             Cancel
           </div>
+          <div
+            style={Style.saveButton}
+            className="btn btn-primary"
+            onClick={this.handleClick_Service}>
+            Execute Task Type Service
+          </div>
         </div>
       </div>
     )
+  },
+
+  handleClick_Service: function () {
+    var service = new TaskTypeService(this.state.plan._id);
+    service.execute(function (err) {
+      if (err) { console.log(err); }
+    });
   },
 
   handleClick_Save: function() {

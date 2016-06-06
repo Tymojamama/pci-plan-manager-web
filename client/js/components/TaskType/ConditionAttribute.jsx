@@ -53,14 +53,9 @@ var Attribute = React.createClass({
                   <option value=""></option>
                   <option value="equal">Equal to</option>
                   <option value="not equal">Not equal to</option>
-                  <option value="contains">Contains</option>
-                  <option value="not contains">Does not contain</option>
                   <option value="between">Between</option>
-                  <option value="not between">Not between</option>
                   <option value="greater than">Greater than</option>
-                  <option value="greater than or equal to">Greater than or equal to</option>
                   <option value="less than">Less than</option>
-                  <option value="less than or equal to">Less than or equal to</option>
                 </select>
               </span>
             </div>

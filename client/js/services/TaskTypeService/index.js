@@ -41,18 +41,19 @@ function generateObject(attributes, recursionDate) {
 }
 
 function meetsCriteria (plan, condition) {
-  if (condition.entity === plan) {
+  if (condition.entity === "plan") {
     var required = condition.attributes.length;
     var total = 0;
     condition.attributes.map(function (attribute) {
+      console.log(attribute.name, plan[attribute.name], attribute.value);
       switch (attribute.comparisonType) {
         case "equal":
-          if (plan[attribute.name] == attribute.value) {
+          if (plan[attribute.name].toString() == attribute.value.toString()) {
             total++;
           }
           break;
         case "not equal":
-          if (plan[attribute.name] != attribute.value) {
+          if (plan[attribute.name].toString() != attribute.value.toString()) {
             total++;
           }
           break;
@@ -152,6 +153,7 @@ function executeSteps (plan, steps, taskType) {
     object.frequency = frequency;
     object.taskTypeId = taskType._id;
     object.planId = plan._id;
+    object.ownerId = plan.createdBy;
 
     // create tasks for the next 3 years
     switch (object.frequency) {

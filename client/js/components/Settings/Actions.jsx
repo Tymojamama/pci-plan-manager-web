@@ -9,145 +9,144 @@ var ModalWindow = require('../ModalWindow/Index.jsx');
 var FeedItem = require('../Feed/Item.jsx');
 
 var createActionLinkOptions = {
-    pathname: '/settings/action',
-    query: {
-        action: 'create'
-    }
+  pathname: '/settings/action',
+  query: {
+    action: 'create'
+  }
 };
 
 function getParameterByName(name) {
-    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
-        results = regex.exec(location.search);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+  var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+    results = regex.exec(location.search);
+  return results === null
+    ? ""
+    : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
 function getState(callback) {
-    ActionStore.get(function (docs) {
-        callback({
-            actions: docs
-        });
-    });
+  ActionStore.get(function(docs) {
+    callback({actions: docs});
+  });
 }
 
 function createComponents(docs) {
 
-    if (!docs || docs.length === 0){
-        return;
+  if (!docs || docs.length === 0) {
+    return;
+  }
+
+  return docs.map(function(doc) {
+
+    var numberOfPages = 0;
+    if (doc.pages && doc.pages.length) {
+      numberOfPages = doc.pages.length;
     }
 
-    return docs.map(function (doc) {
+    var body = (
+      <div>
+        <div>Name: {doc.name}</div>
+        <div>Number of pages: {numberOfPages}</div>
+      </div>
+    );
 
-        var numberOfPages = 0;
-        if (doc.pages && doc.pages.length) {
-            numberOfPages = doc.pages.length;
-        }
+    var handleClickOpen = function() {
+      browserHistory.push("/settings/action?action=open&id=" + doc._id);
+    };
 
-        var body = (
-            <div>
-                <div>Name: {doc.name}</div>
-                <div>Number of pages: {numberOfPages}</div>
-            </div>
-        );
+    var handleClickDelete = function() {
+      ActionActions.destroy(doc);
+    };
 
-        var handleClickOpen = function () {
-            browserHistory.push("/settings/action?action=open&id=" + doc._id);
-        };
+    var actionItems = [
+      {
+        type: "open",
+        handleClick: handleClickOpen
+      }, {
+        type: "delete",
+        handleClick: handleClickDelete
+      }
+    ];
 
-        var handleClickDelete = function () {
-            ActionActions.destroy(doc);
-        };
+    var loadModalWindow = function() {
+      if (getParameterByName('action') == 'open' && getParameterByName('id') == doc._id) {
+        var id = getParameterByName('id');
+        var content = <ActionPage id={id}/>
+        return (<ModalWindow content={content} parentPath={"/settings/action"}/>)
+      }
+    };
 
-        var actionItems = [
-            { type: "open", handleClick: handleClickOpen },
-            { type: "delete", handleClick: handleClickDelete }
-        ];
+    var linkPath = "/settings/action?action=open&id=" + doc._id;
 
-        var loadModalWindow = function () {
-            if (getParameterByName('action') == 'open' && getParameterByName('id') == doc._id) {
-                var id = getParameterByName('id');
-                var content = <ActionPage id={id} />
-                return (
-                    <ModalWindow content={content} parentPath={"/settings/action"} />
-                )
-            }
-        };
+    return (
+      <div>
+        {loadModalWindow()}
+        <FeedItem
+          key={doc._id}
+          iconSrc={"🔧"}
+          object={doc}
+          heading={doc.name}
+          subHeading={"Action Item Settings"}
+          body={body}
+          actions={actionItems}
+          linkPath={linkPath}/>
+      </div>
+    );
 
-        var linkPath = "/settings/action?action=open&id=" + doc._id;
-
-        return (
-            <div>
-                {loadModalWindow()}
-                <FeedItem
-                    key={doc._id}
-                    iconSrc={"🔧"}
-                    object={doc}
-                    heading={doc.name}
-                    subHeading={"Action Item Settings"}
-                    body={body}
-                    actions={actionItems}
-                    linkPath={linkPath} />
-            </div>
-        );
-
-    });
+  });
 }
 
 var Actions = React.createClass({
-    getInitialState: function() {
-        return {
-            actions: ''
-        }
-    },
+  getInitialState: function() {
+    return {actions: ''}
+  },
 
-    componentWillMount: function () {
-        getState(function (state) {
-            this.setState(state);
-        }.bind(this));
-    },
+  componentWillMount: function() {
+    getState(function(state) {
+      this.setState(state);
+    }.bind(this));
+  },
 
-    componentDidMount: function() {
-        ActionStore.addChangeListener(this.handleChangeActionStore);
-    },
+  componentDidMount: function() {
+    ActionStore.addChangeListener(this.handleChangeActionStore);
+  },
 
-    componentWillUnmount: function() {
-        ActionStore.removeChangeListener(this.handleChangeActionStore);
-    },
+  componentWillUnmount: function() {
+    ActionStore.removeChangeListener(this.handleChangeActionStore);
+  },
 
-    render: function () {
-        return (
-            <div>
-                <Link to={createActionLinkOptions} replace={true}>
-                    <div style={Style.newTaskTypeButton}>
-                        + Create Action Item
-                    </div>
-                </Link>
-                <div>
-                    {this.loadModalWindow()}
-                    {createComponents(this.state.actions)}
-                </div>
-            </div>
-        )
-    },
+  render: function() {
+    return (
+      <div>
+        <Link to={createActionLinkOptions} replace={true}>
+          <div style={Style.newTaskTypeButton}>
+            + Create Action Item
+          </div>
+        </Link>
+        <div>
+          {this.loadModalWindow()}
+          {createComponents(this.state.actions)}
+        </div>
+      </div>
+    )
+  },
 
-    handleChangeActionStore: function () {
-        getState(function (state) {
-            this.setState(state);
-        }.bind(this));
-    },
+  handleChangeActionStore: function() {
+    getState(function(state) {
+      this.setState(state);
+    }.bind(this));
+  },
 
-    handleClickLabel: function () {
-        browserHistory.push(this.props.linkPath);
-    },
+  handleClickLabel: function() {
+    browserHistory.push(this.props.linkPath);
+  },
 
-    loadModalWindow: function () {
-        if (getParameterByName('action') == 'create' ) {
-            var content = <ActionPage />
-            return (
-                <ModalWindow content={content} parentPath={"/settings/action"} />
-            )
-        }
-    },
+  loadModalWindow: function() {
+    if (getParameterByName('action') == 'create') {
+      var content = <ActionPage/>
+      return (<ModalWindow content={content} parentPath={"/settings/action"}/>)
+    }
+  }
 });
 
 module.exports = Actions;

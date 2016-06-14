@@ -35,8 +35,8 @@ var Action = React.createClass({
     pages = [];
     pages[0] = (
       <div className="container-fluid" style={{
-        margin: "0",
-        padding: "0"
+        margin: "0px",
+        padding: "0px"
       }}>
         <div className="row">
           <div className="row-fluid">
@@ -55,12 +55,12 @@ var Action = React.createClass({
               borderLeft: "3px solid #666666"
             }} className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
               <div className="container-fluid" style={{
-                margin: "0",
-                padding: "0"
+                margin: "0px",
+                padding: "0px"
               }}>
                 <div className="row" style={{
-                  margin: "0",
-                  padding: "0"
+                  margin: "0px",
+                  padding: "0px"
                 }}>
                   <div className="row-fluid">
                     <span className="col-lg-4 col-md-4 hidden-sm hidden-xs text-right">Name</span>
@@ -91,16 +91,16 @@ var Action = React.createClass({
     return (
       <div style={Style.container} className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div style={{
-          margin: "0",
-          padding: "0"
+          margin: "0px",
+          padding: "0px"
         }} className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
           <div className="container-fluid" style={{
-            margin: "0",
-            padding: "0"
+            margin: "0px",
+            padding: "0px"
           }}>
             <div className="row" style={{
-              margin: "0",
-              padding: "0"
+              margin: "0px",
+              padding: "0px"
             }}>
               <div className="row-fluid">
                 <span className="col-lg-3 col-md-3 col-sm-12 col-xs-12">
@@ -115,12 +115,12 @@ var Action = React.createClass({
             </div>
           </div>
           <div className="container-fluid" style={{
-            margin: "0",
-            padding: "0"
+            margin: "0px",
+            padding: "0px"
           }}>
             <div className="row" style={{
-              margin: "0",
-              padding: "0"
+              margin: "0px",
+              padding: "0px"
             }}>
               <div className="row-fluid padding-top-05">
                 <span className="col-lg-12 col-md-12 col-sm-12 col-xs-12">

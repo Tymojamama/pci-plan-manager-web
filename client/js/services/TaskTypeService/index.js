@@ -1,9 +1,23 @@
+var $ = require('jquery');
 var S = require("string");
 var moment = require('moment');
 var Data = require('../PlanManagerService');
+var TaskStore = require('../../stores/TaskStore');
 var Entities = require('../ActionExecutor/entities');
 
-function generateObject(attributes, recursionDate, planStartDate) {
+function getPlanTasks (plan, callback) {
+  TaskStore.get(function (tasks) {
+    var result = [];
+    tasks.map(function (task) {
+      if (task.planId == plan._id) {
+        result.push(task);
+      }
+    });
+    callback(result);
+  });
+}
+
+function generateObject(attributes, recursionDate) {
   var result = {};
   attributes.map(function (attribute) {
     if (attribute.name === "dateDue") {
@@ -19,7 +33,6 @@ function generateObject(attributes, recursionDate, planStartDate) {
         result[attribute.name] = moment(recursionDate.toString()).toDate();
       }
       result.input = attribute.value;
-      result.planStartDate = planStartDate;
     } else {
       result[attribute.name] = attribute.value;
     }
@@ -92,9 +105,26 @@ function recursionToDate(plan, frequency) {
   }
 }
 
+// don't create tasks that already exist
+function createTask (plan, object) {
+  getPlanTasks(plan, function (tasks) {
+    var exists = false;
+    tasks.map(function (task) {
+      if (object.taskTypeId == task.taskTypeId
+          && moment(object.dateDue).format("MM/DD/YYYY") == moment(task.dateDue).format("MM/DD/YYYY")) {
+        exists = true;
+      }
+    });
+    if (exists === false) {
+      //console.log(object);
+      Entities["task"].steps["create"](object);
+    }
+  });
+}
+
 // To do: Need to ensure that duplicate tasks are not created.
 //        Need to make it so that tasks are created 2-3 years into the future.
-function executeSteps (plan, steps) {
+function executeSteps (plan, steps, taskType) {
   steps.map(function (step) {
     var frequency = "";
     step.recursion.map(function (recursion) {
@@ -120,8 +150,85 @@ function executeSteps (plan, steps) {
     var recursionDate = recursionToDate(plan, frequency);
     var object = generateObject(step.attributes, recursionDate, plan.planStartDate);
     object.frequency = frequency;
-    console.log(object);
-    //Entities[step.entity].steps[step.type](object);
+    object.taskTypeId = taskType._id;
+    object.planId = plan._id;
+
+    // create tasks for the next 3 years
+    switch (object.frequency) {
+      case "annual":
+        createTask(plan,object);
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("1", "years").toDate();
+        createTask(plan,object);
+        var object = $.extend({}, object);;
+        object.dateDue = moment(object.dateDue.toString()).add("1", "years").toDate();
+        createTask(plan,object);
+        break;
+      case "semi-annual":
+        // 1 year
+        createTask(plan,object);
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("6", "months").toDate();
+        createTask(plan,object);
+        // 2 years
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("6", "months").toDate();
+        createTask(plan,object);
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("6", "months").toDate();
+        createTask(plan,object);
+        // 3 years
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("6", "months").toDate();
+        createTask(plan,object);
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("6", "months").toDate();
+        createTask(plan,object);
+        break;
+      case "quarterly":
+        // 1 year
+        createTask(plan,object);
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("3", "months").toDate();
+        createTask(plan,object);
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("3", "months").toDate();
+        createTask(plan,object);
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("3", "months").toDate();
+        createTask(plan,object);
+        // 2 years
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("3", "months").toDate();
+        createTask(plan,object);
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("3", "months").toDate();
+        createTask(plan,object);
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("3", "months").toDate();
+        createTask(plan,object);
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("3", "months").toDate();
+        createTask(plan,object);
+        // 3 years
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("3", "months").toDate();
+        createTask(plan,object);
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("3", "months").toDate();
+        createTask(plan,object);
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("3", "months").toDate();
+        createTask(plan,object);
+        var object = $.extend({}, object);
+        object.dateDue = moment(object.dateDue.toString()).add("3", "months").toDate();
+        createTask(plan,object);
+        break;
+      default:
+        createTask(plan,object);
+        break;
+
+    }
   });
 }
 
@@ -132,7 +239,7 @@ function TaskTypeService (planId) {
         taskTypes.map(function (taskType) {
           taskType.conditionSets.map(function (conditionSet) {
             if (conditionSet.conditions.length === 0) {
-              executeSteps(plan, conditionSet.steps);
+              executeSteps(plan, conditionSet.steps, taskType);
             } else {
               var required = conditionSet.conditions.length;
               var total = 0;
@@ -142,7 +249,7 @@ function TaskTypeService (planId) {
                 }
               });
               if (total === required) {
-                executeSteps(plan, conditionSet.steps);
+                executeSteps(plan, conditionSet.steps, taskType);
               }
             }
           });

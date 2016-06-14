@@ -12,6 +12,16 @@ AppDispatcher.register(function(action) {
 				Store.emitChange();
 			});
 			break;
+		case Constants.PLAN_CREATE:
+			Store.insert(action.doc, function(data) {
+				Store.emitChange();
+			});
+			break;
+		case Constants.PLAN_DESTROY:
+			Store.delete(action.doc, function(data) {
+				Store.emitChange();
+			});
+			break;
 	}
 });
 

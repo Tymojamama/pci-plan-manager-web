@@ -11,16 +11,15 @@ var Document = require('./components/Document/Page.jsx');
 var Header = require('./components/Header/Index.jsx');
 var Footer = require('./components/Footer/Index.jsx');
 var FiduciaryOversight = require('./components/FiduciaryOversight/Index.jsx');
+var FiduciaryOversightFilter = require('./components/FiduciaryOversight/Filter.jsx');
 var FiduciaryOversightHome = require('./components/FiduciaryOversight/Home.jsx');
-var FiduciaryOversightInvestments = require('./components/FiduciaryOversight/Investments.jsx');
-var FiduciaryOversightVendors = require('./components/FiduciaryOversight/Vendors.jsx');
-var FiduciaryOversightAdministration = require('./components/FiduciaryOversight/Administration.jsx');
 var Navigation = require('./components/Home/Navigation.jsx');
 var Home = require('./components/Home/Index.jsx');
 var Login = require('./components/Login/Index.jsx');
 var Profile = require('./components/Profile/Index.jsx');
 var Actions = require('./components/Actions/Index.jsx');
 var Plan = require('./components/Plan/Index.jsx');
+var PlanCreate = require('./components/Plan/Create.jsx');
 var PlanSearch = require('./components/Plan/Search.jsx');
 var PlanProfile = require('./components/Plan/Profile.jsx');
 var PlanInfo = require('./components/Plan/Info.jsx');
@@ -77,18 +76,17 @@ var App = React.createClass({
 
 var Routes = (
   <Route path="/" component={App}>
-    <IndexRoute component={Home}/>
+    <IndexRoute component={Home} />
     <Route path="document/:id" component={Document} />
     <Route path="fiduciary" component={FiduciaryOversight}>
-      <IndexRoute component={FiduciaryOversightHome}/>
-      <Route path="investments" component={FiduciaryOversightInvestments}/>
-      <Route path="vendors" component={FiduciaryOversightVendors}/>
-      <Route path="administration" component={FiduciaryOversightAdministration}/>
+      <IndexRoute component={FiduciaryOversightHome} />
+      <Route path=":id" component={FiduciaryOversightFilter} />
     </Route>
-    <Route path="welcome" component={Welcome}/>
-    <Route path="navigation" component={MobileNavigation}/>
-    <Route path="action" component={Actions}/>
-    <Route path="plan" component={PlanSearch}/>
+    <Route path="welcome" component={Welcome} />
+    <Route path="navigation" component={MobileNavigation} />
+    <Route path="action" component={Actions} />
+    <Route path="plan" component={PlanSearch} />
+    <Route path="plan/create" component={PlanCreate} />
     <Route path="plan/:id" component={Plan}>
       <IndexRoute component={PlanProfile}/>
       <Route path="info" component={PlanInfo} />

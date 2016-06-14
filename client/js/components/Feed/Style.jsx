@@ -11,14 +11,14 @@ module.exports = {
 	labelContainer: {
 		display: "inline-block",
 		textAlign: "left",
-		padding: "0",
+		padding: "0px",
 		wordWrap: "normal",
 		whiteSpace: "normal",
 		verticalAlign: "top",
 	},
 	downContainer: {
 		textAlign: "right",
-		padding: "0",
+		padding: "0px",
 		textDecoration: "none",
 		color: "#ccc",
 	},

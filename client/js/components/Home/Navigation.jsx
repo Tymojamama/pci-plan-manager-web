@@ -7,21 +7,30 @@ var Header = require('../Navigation/Header.jsx');
 
 var Navigation = React.createClass({
 
-    render: function(){
-        return (
-            <div>
-                <LinkItem label="🏠 You are home" link="/" backgroundColor="#da383c" backgroundColorHover="#c22426" />
-                <Spacer />
+  render: function() {
+    return (
+      <div>
+        <LinkItem
+          label="🏠 You are home"
+          link="/"
+          backgroundColor="#da383c"
+          backgroundColorHover="#c22426"/>
+        <Spacer/>
 
-                <Header label="📡 Oversight" />
-                <LinkItem label="📜 Plan Settlor" link="/settlor" backgroundColor="#222222" backgroundColorHover="#0d0d0d" />
-                <LinkItem label="🔖 Plan Fiduciary" link="/fiduciary" backgroundColor="#222222" backgroundColorHover="#0d0d0d" />
+        <Header label="📡 Oversight"/>
+        <LinkItem
+          label="🔖 Plan Fiduciary"
+          link="/fiduciary"
+          backgroundColor="#222222"
+          backgroundColorHover="#0d0d0d"/>
 
-                <PlanSearch options={{isComponent:true}} />
+        <PlanSearch options={{
+          isComponent: true
+        }}/>
 
-            </div>
-        )
-    },
+      </div>
+    )
+  }
 });
 
 module.exports = Navigation;

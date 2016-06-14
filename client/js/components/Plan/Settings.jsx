@@ -6,6 +6,7 @@ var Input = require('../Form/Index.jsx').Input;
 var Label = require('../Form/Index.jsx').Label;
 var Select = require('../Form/Index.jsx').Select;
 var TextArea = require('../Form/Index.jsx').TextArea;
+var Button = require('../Button/Index.jsx');
 var PlanActions = require('../../actions/PlanActions.js');
 var PlanStore = require('../../stores/PlanStore.js');
 var TaskTypeService = require('../../services/TaskTypeService');
@@ -188,23 +189,21 @@ var PlanSettings = React.createClass({
             onChange={this.handleChange_Attribute} />
         </div>
         <div className="row">
-          <div
-            style={Style.saveButton}
-            className="btn btn-primary"
-            onClick={this.handleClick_Save}>
-            Save
-          </div>
-          <div
-            className="btn btn-default"
-            onClick={this.handleClick_Cancel}>
-            Cancel
-          </div>
-          <div
-            style={Style.saveButton}
-            className="btn btn-primary"
-            onClick={this.handleClick_Service}>
-            Execute Task Type Service
-          </div>
+          <Button.Primary
+            label={"Save"}
+            onClick={this.handleClick_Save} />
+          <span style={{margin:"0px 5px"}} />
+          <Button.Secondary
+            label={"Cancel"}
+            onClick={this.handleClick_Cancel} />
+          <span style={{margin:"0px 5px"}} />
+          <Button.Danger
+            label={"Delete"}
+            onClick={this.handleClick_Delete} />
+          <span style={{margin:"0px 5px"}} />
+          <Button.Secondary
+            label={"Execute Task Type Service"}
+            onClick={this.handleClick_Service} />
         </div>
       </div>
     )
@@ -219,9 +218,22 @@ var PlanSettings = React.createClass({
 
   handleClick_Save: function() {
     var plan = this.state.plan;
-    plan.planStartDate = moment(plan.planStartDate).utc();
-    PlanActions.savePlan(plan);
+    if (plan.planStartDate) {
+      plan.planStartDate = moment(plan.planStartDate).utc();
+    }
+    if (!plan._id) {
+      PlanActions.create(plan);
+    } else {
+      PlanActions.savePlan(plan);
+    }
     browserHistory.push("/plan/" + this.state.plan._id);
+  },
+
+  handleClick_Delete: function () {
+    if (confirm('Are you sure you wish to delete this plan? You will lose all data for this plan.')) {
+      PlanActions.destroy(this.state.plan);
+      browserHistory.push("/");
+    }
   },
 
   handleClick_Cancel: function () {

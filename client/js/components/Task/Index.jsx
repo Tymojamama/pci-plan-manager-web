@@ -6,7 +6,6 @@ var TaskNavigationStore = require('../../stores/TaskNavigationStore.js');
 
 var Details = require('./Details.jsx');
 var Meetings = require('./Meetings.jsx');
-var People = require('./People.jsx');
 var Documents = require('./Documents.jsx');
 var Navigation = require('./Navigation.jsx');
 
@@ -50,8 +49,6 @@ var Task = React.createClass({
     } else if (this.state.currentPage === TaskNavigationStore.getPages()[1]) {
       return <Meetings id={this.props.id} handleClose={this.props.handleClose}/>
     } else if (this.state.currentPage === TaskNavigationStore.getPages()[2]) {
-      return <People id={this.props.id} handleClose={this.props.handleClose}/>
-    } else if (this.state.currentPage === TaskNavigationStore.getPages()[3]) {
       return <Documents id={this.props.id} handleClose={this.props.handleClose}/>
     }
   },

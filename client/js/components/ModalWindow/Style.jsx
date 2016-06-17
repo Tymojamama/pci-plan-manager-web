@@ -5,13 +5,13 @@ module.exports = {
 		height: "100%",
 		backgroundColor: "rgba(0, 0, 0, 0.75)",
 		position: "fixed",
-		top: "0",
-		left: "0",
+		top: "0px",
+		left: "0px",
 		overflowY: "scroll",
 	},
 	content: {
 		backgroundColor: "transparent",
-		padding: "0",
+		padding: "0px",
 		top: "15px",
 	},
 	close: {

@@ -6,6 +6,8 @@ var Input = require('../Form/Index.jsx').Input;
 var Label = require('../Form/Index.jsx').Label;
 var Select = require('../Form/Index.jsx').Select;
 var TextArea = require('../Form/Index.jsx').TextArea;
+var TaskDocuments = require('../Task/Documents.jsx');
+var TaskMeetings = require('../Task/Meetings.jsx');
 var ModalWindow = require('../ModalWindow/Index.jsx');
 var TaskStore = require('../../stores/TaskStore');
 var TaskActions = require('../../actions/TaskActions');
@@ -49,9 +51,7 @@ var TaskCompleteDialog = React.createClass({
         </div>
       ), (
         <div>
-          <Label
-            label="Completion Comments"
-            isRequired={true} />
+          <Label label="Completion Comments" />
           <TextArea
             key="completionComments"
             attribute="completionComments"
@@ -60,18 +60,17 @@ var TaskCompleteDialog = React.createClass({
         </div>
       ), (
         <div>
-          <Label
-            label="People Involved Comments"
-            isRequired={true} />
-          <TextArea
-            key="peopleInvolvedComments"
-            attribute="peopleInvolvedComments"
-            value={this.task.peopleInvolvedComments}
-            onChange={this.handleChange_Attribute}/>
+          <Label label="Here are the documents you've uploaded" />
+          <TaskDocuments
+            id={this.props.task._id}
+            handleClose={this.props.handleClose} />
         </div>
       ), (
         <div>
-          People
+          <Label label="Here are the meetings you've added" />
+          <TaskMeetings
+            id={this.props.task._id}
+            handleClose={this.props.handleClose} />
         </div>
       )];
 
@@ -83,8 +82,9 @@ var TaskCompleteDialog = React.createClass({
         <div style={Style.body}>
           {this.getStepHeader()}
           <div style={{
-            padding: "10px 0 5px 0"
-          }}>
+              padding: "10px 0 5px 0",
+              fontSize: "14px",
+            }}>
             {pages[this.state.pageNumber]}
           </div>
           {this.getNavigation()}
@@ -152,19 +152,19 @@ var TaskCompleteDialog = React.createClass({
           <div>
             <b>Step 1:</b>
           </div>
-          <div>Completion Comments</div>
+          <div>Comments</div>
         </div>
         <div style={step2Style} className="col-lg-4 col-md-4 col-sm-6 col-xs-12" onClick={this.handleClickStep2}>
           <div>
             <b>Step 2:</b>
           </div>
-          <div>People Involved Comments</div>
+          <div>Documents</div>
         </div>
         <div style={step3Style} className="col-lg-4 col-md-4 col-sm-6 col-xs-12" onClick={this.handleClickStep3}>
           <div>
             <b>Step 3:</b>
           </div>
-          <div>People</div>
+          <div>Meetings</div>
         </div>
       </div>
     )

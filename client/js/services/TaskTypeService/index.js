@@ -154,6 +154,8 @@ function executeSteps (plan, steps, taskType) {
     object.taskTypeId = taskType._id;
     object.planId = plan._id;
     object.ownerId = plan.createdBy;
+    object.isActive = true;
+    object.status = "In Progress";
 
     // create tasks for the next 3 years
     switch (object.frequency) {

@@ -13,9 +13,6 @@ _pages[1] = {
 	name: "Meetings"
 }
 _pages[2] = {
-	name: "People"
-}
-_pages[3] = {
 	name: "Documents"
 }
 

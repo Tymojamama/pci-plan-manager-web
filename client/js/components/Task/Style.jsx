@@ -5,8 +5,8 @@ module.exports = {
         padding: "20px 5px 20px 5px",
     },
     containerHeading: {
-        margin: "0 0 5px 0",
-        padding: "0",
+        margin: "0px 0px 5px 0px",
+        padding: "0px",
     },
     label: {
 

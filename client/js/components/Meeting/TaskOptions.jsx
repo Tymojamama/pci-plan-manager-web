@@ -1,19 +1,20 @@
 var React = require('react');
+var moment = require('moment');
 var Style = require('./Style.jsx');
 var Select = require('../Form/Index.jsx').Select;
-var PlanStore = require('../../stores/PlanStore.js');
+var TaskStore = require('../../stores/TaskStore.js');
 
-var PlanOptions = React.createClass({
+var TaskOptions = React.createClass({
   getInitialState: function() {
     return {
-      plans: []
+      tasks: []
     }
   },
 
   componentWillMount: function() {
-    PlanStore.get(function(plans) {
+    TaskStore.get(function(tasks) {
       this.setState({
-        plans: plans,
+        tasks: tasks,
       });
     }.bind(this));
   },
@@ -29,10 +30,20 @@ var PlanOptions = React.createClass({
 
   getSelectOptions: function () {
     var result = [];
-    this.state.plans.map(function (plan) {
+    this.state.tasks.sort(function (a,b) {
+      var key1 = moment(a.dateDue).toDate();
+      var key2 = moment(b.dateDue).toDate();
+      if (key1 < key2) {
+        return -1;
+      } else if (key1 == key2) {
+        return 0;
+      } else {
+        return 1;
+      }
+    }).map(function (task) {
       result.push({
-        label: plan.name,
-        value: plan._id,
+        label: moment(task.dateDue).format("MM/DD/YYYY") + " - " + task.name,
+        value: task._id,
       });
     });
     return result;
@@ -47,4 +58,4 @@ var PlanOptions = React.createClass({
   },
 });
 
-module.exports = PlanOptions;
+module.exports = TaskOptions;

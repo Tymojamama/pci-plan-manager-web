@@ -73,7 +73,7 @@ var TaskCompleteDialog = React.createClass({
             handleClose={this.props.handleClose} />
         </div>
       )];
-
+    console.log(this.props.task);
     return (
       <div id={getComponentId(this.props.task)} className="col-lg-12 col-md-12 col-sm-12 col-xs-12" style={Style.container}>
         <div style={Style.head}>

@@ -19,8 +19,8 @@ var Navigation = React.createClass({
 
         <Header label="📡 Oversight"/>
         <LinkItem
-          label="🔖 Plan Fiduciary"
-          link="/fiduciary"
+          label="📂 Documents"
+          link="/document"
           backgroundColor="#222222"
           backgroundColorHover="#0d0d0d"/>
 

@@ -7,6 +7,7 @@ var Route = require('react-router').Route;
 var browserHistory = require('react-router').browserHistory;
 var IndexRoute = require('react-router').IndexRoute;
 
+var Documents = require('./components/Documents/Page.jsx');
 var Document = require('./components/Document/Page.jsx');
 var Meeting = require('./components/Meeting/Page.jsx');
 var Header = require('./components/Header/Index.jsx');
@@ -78,6 +79,7 @@ var App = React.createClass({
 var Routes = (
   <Route path="/" component={App}>
     <IndexRoute component={Home} />
+    <Route path="document" component={Documents} />
     <Route path="meeting/create" component={Meeting} />
     <Route path="meeting/:id" component={Meeting} />
     <Route path="document/:id" component={Document} />

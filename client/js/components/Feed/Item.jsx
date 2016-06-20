@@ -16,6 +16,7 @@ var Meeting = require('./Meeting.jsx');
 var MeetingActions = require('./MeetingActions.jsx');
 var Document = require('./Document.jsx');
 var DocumentActions = require('./DocumentActions.jsx');
+var PlanName = require('./PlanName.jsx');
 
 var TaskDetails = require('../Task/Index.jsx');
 var ModalWindow = require('../ModalWindow/Index.jsx');
@@ -182,8 +183,8 @@ var FeedItem = React.createClass({
       );
     }
 
+    // add plan name here
     var heading;
-
     switch (this.props.type) {
       case FeedItemConstants.TASK:
         if (this.props.object.dateDue) {
@@ -192,19 +193,25 @@ var FeedItem = React.createClass({
           if (dateDue <= today) {
             heading = (
               <span style={{
-                color: "#da383c"
-              }}>
-                <b>{moment(this.props.object.dateDue).format("MMM D, YYYY")}</b>
+                  color: "#da383c"
+                }}>
+                <b>
+                  {moment(this.props.object.dateDue).format("MMM D, YYYY")}
+                </b>
               </span>
             )
           } else {
             heading = (
-              <span>{moment(this.props.object.dateDue).format("MMM D, YYYY")}</span>
+              <span>
+                {moment(this.props.object.dateDue).format("MMM D, YYYY")}
+              </span>
             )
           }
         } else {
           heading = (
-            <span>{"No due date."}</span>
+            <span>
+              {"No due date."}
+            </span>
           )
         }
         break;
@@ -223,6 +230,8 @@ var FeedItem = React.createClass({
         verticalAlign: "top"
       }}>
         {heading}
+        {" - "}
+        <PlanName id={this.props.object.planId} />
       </div>
     );
   },

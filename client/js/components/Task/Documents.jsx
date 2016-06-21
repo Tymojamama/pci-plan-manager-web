@@ -190,6 +190,7 @@ var Documents = React.createClass({
 	},
 
 	handleUpload_DocumentUploader: function (name,path) {
+		console.log(this.state.task);
 		var doc = {};
 		doc.name = name;
 		doc.path = path;

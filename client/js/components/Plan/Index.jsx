@@ -42,23 +42,39 @@ var PlanPage = React.createClass({
 
   render: function() {
     return (
-      <div style={Style.headerPadding} className="col-lg-8 col-md-12 col-sm-12 col-xs-12 col-centered">
-        <div className="col-lg-3 col-md-3 hidden-sm hidden-xs" style={{
-          paddingLeft: "0px",
-          marginLeft: "0px"
-        }}>
+      <div
+        style={Style.headerPadding}
+        className="col-lg-8 col-xs-12 col-centered">
+        <h3
+          style={{
+            margin: "15px 0px",
+          }}>
+          {this.state.plan.name}
+        </h3>
+        <div
+          className="col-md-3 hidden-sm hidden-xs"
+          style={{
+            paddingLeft: "0px",
+            marginLeft: "0px"
+          }}>
           <PlanNavigation planId={this.state.plan._id}/>
         </div>
-        <div className="col-lg-6 col-md-6 col-sm-12 col-xs-12" style={{
-          padding: "0px",
-          margin: "0px"
-        }}>
+        <div
+          className="col-md-6 col-xs-12"
+          style={{
+            padding: "0px",
+            margin: "0px"
+          }}>
           {this.props.children}
         </div>
-        <div className="col-lg-3 col-md-3 hidden-sm hidden-xs" style={{
-          paddingRight: "0px",
-          marginRight: "0px"
-        }}></div>
+        <div
+          className="col-md-3 hidden-sm hidden-xs"
+          style={{
+            paddingRight: "0px",
+            marginRight: "0px"
+          }}>
+
+        </div>
       </div>
     );
   },

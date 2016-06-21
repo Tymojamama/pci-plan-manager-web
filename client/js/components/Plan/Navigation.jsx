@@ -27,14 +27,22 @@ var NavigationFeed = React.createClass({
   render: function() {
     return (
       <div className="feed-navigation">
-        <LinkItem label={getBackLinkLabel(this.props.planId)} link={getBackLinkPath(this.props.planId)}/>
+        <LinkItem
+          label={getBackLinkLabel(this.props.planId)}
+          link={getBackLinkPath(this.props.planId)}/>
         <Spacer/>
 
         <Header label="🔦 Plan Navigation"/>
-        <LinkItem label="Info" link={"/plan/" + this.props.planId + "/info"} backgroundColor="#0e2e47" backgroundColorHover="#081c2b"/>
-        <LinkItem label="📜 Terms" link={"/plan/" + this.props.planId + "/terms"} backgroundColor="#0e2e47" backgroundColorHover="#081c2b"/>
-        <LinkItem label="📂 Documents" link={"/plan/" + this.props.planId + "/documents"} backgroundColor="#0e2e47" backgroundColorHover="#081c2b"/>
-        <LinkItem label="⚙ Settings" link={"/plan/" + this.props.planId + "/settings"} backgroundColor="#0e2e47" backgroundColorHover="#081c2b"/>
+        <LinkItem
+          label="📂 Documents"
+          link={"/plan/" + this.props.planId + "/documents"}
+          backgroundColor="#0e2e47"
+          backgroundColorHover="#081c2b"/>
+        <LinkItem
+          label="⚙ Settings"
+          link={"/plan/" + this.props.planId + "/settings"}
+          backgroundColor="#0e2e47"
+          backgroundColorHover="#081c2b"/>
       </div>
     )
   }

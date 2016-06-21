@@ -22,7 +22,9 @@ function getNavigationId(task) {
 
 var TaskCompleteDialog = React.createClass({
   getInitialState: function() {
-    return {pageNumber: ''}
+    return {
+      pageNumber: ''
+    }
   },
 
   componentWillMount: function() {
@@ -35,7 +37,9 @@ var TaskCompleteDialog = React.createClass({
     $("#" + getNavigationId(this.props.task)).delay(200).slideDown("slow");
   },
 
-  componentWillUnmount: function() {},
+  componentWillUnmount: function() {
+
+  },
 
   render: function() {
     var pages = [(
@@ -203,6 +207,8 @@ var TaskCompleteDialog = React.createClass({
   },
 
   handleClickFinish: function() {
+    this.task.status = "Completed";
+    this.task.isActive = false;
     TaskActions.update(this.task);
     this.props.handleClose();
   }

@@ -1,13 +1,10 @@
 var React = require('react');
-
 var Style = require('./Style.jsx');
-
-var TaskNavigationStore = require('../../stores/TaskNavigationStore.js');
-
 var Details = require('./Details.jsx');
 var Meetings = require('./Meetings.jsx');
 var Documents = require('./Documents.jsx');
 var Navigation = require('./Navigation.jsx');
+var TaskNavigationStore = require('../../stores/TaskNavigationStore.js');
 
 function getTaskNavigationState() {
   return {currentPage: TaskNavigationStore.getCurrentPage()}
@@ -32,8 +29,8 @@ var Task = React.createClass({
 
   render: function() {
     return (
-      <div style={Style.container} className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div className="col-lg-3 col-md-3 hidden-sm hidden-xs">
+      <div style={Style.container} className="col-xs-12">
+        <div className="col-md-3 hidden-sm hidden-xs">
           <Navigation currentPage={this.state.currentPage}/>
         </div>
         <div className="col-md-9 col-xs-12">

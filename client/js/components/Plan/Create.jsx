@@ -127,16 +127,6 @@ var PlanSettings = React.createClass({
           </div>
           <div className="row">
             <Label
-              label={"Is Auditable"}
-              isRequired={false} />
-            <Select
-              options={["true","false"]}
-              attribute={"isAuditable"}
-              value={this.state.plan.isAuditable}
-              onChange={this.handleChange_Attribute} />
-          </div>
-          <div className="row">
-            <Label
               label={"Is Investment Delegated"}
               isRequired={false} />
             <Select
@@ -157,8 +147,38 @@ var PlanSettings = React.createClass({
           </div>
           <div className="row">
             <Label
-              label={"Description"}
-              isRequired={true} />
+              label={"Uses Automatic Enrollment"}
+              isRequired={false} />
+            <Select
+              options={["true","false"]}
+              attribute={"hasAutomaticEnrollment"}
+              value={this.state.plan.hasAutomaticEnrollment}
+              onChange={this.handleChange_Attribute} />
+          </div>
+          <div className="row">
+            <Label
+              label={"Uses Automatic Escalation"}
+              isRequired={false} />
+            <Select
+              options={["true","false"]}
+              attribute={"hasAutomaticEscalation"}
+              value={this.state.plan.hasAutomaticEscalation}
+              onChange={this.handleChange_Attribute} />
+          </div>
+          <div className="row">
+            <Label
+              label={"Uses QDIA Fund"}
+              isRequired={false} />
+            <Select
+              options={["true","false"]}
+              attribute={"hasQdiaFund"}
+              value={this.state.plan.hasQdiaFund}
+              onChange={this.handleChange_Attribute} />
+          </div>
+          <div className="row">
+            <Label
+              label={"Notes"}
+              isRequired={false} />
             <TextArea
               attribute={"description"}
               value={this.state.plan.description}

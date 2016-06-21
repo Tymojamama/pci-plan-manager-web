@@ -1,112 +1,31 @@
 var React = require('react');
+var browserHistory = require('react-router').browserHistory;
 var Style = require('./Style.jsx');
-
-function getNotificationItems() {
-  return (
-    <div>
-      <div style={{
-        borderBottom: "1px solid #ccc",
-        cursor: "pointer",
-        backgroundColor: "#d0dae1"
-      }}>
-        <div style={{
-          padding: "5px"
-        }}>You must file your 5500 by this Sunday</div>
-      </div>
-      <div style={{
-        borderBottom: "1px solid #ccc",
-        cursor: "pointer",
-        backgroundColor: "#d0dae1"
-      }}>
-        <div style={{
-          padding: "5px"
-        }}>You must file your 5500 by this Sunday</div>
-      </div>
-      <div style={{
-        borderBottom: "1px solid #ccc",
-        cursor: "pointer"
-      }}>
-        <div style={{
-          padding: "5px"
-        }}>You must file your 5500 by this Sunday</div>
-      </div>
-      <div style={{
-        borderBottom: "1px solid #ccc",
-        cursor: "pointer"
-      }}>
-        <div style={{
-          padding: "5px"
-        }}>You must file your 5500 by this Sunday</div>
-      </div>
-      <div style={{
-        borderBottom: "1px solid #ccc",
-        cursor: "pointer"
-      }}>
-        <div style={{
-          padding: "5px"
-        }}>You must file your 5500 by this Sunday</div>
-      </div>
-      <div style={{
-        borderBottom: "1px solid #ccc",
-        cursor: "pointer"
-      }}>
-        <div style={{
-          padding: "5px"
-        }}>You must file your 5500 by this Sunday</div>
-      </div>
-      <div style={{
-        borderBottom: "1px solid #ccc",
-        cursor: "pointer"
-      }}>
-        <div style={{
-          padding: "5px"
-        }}>You must file your 5500 by this Sunday</div>
-      </div>
-      <div style={{
-        borderBottom: "1px solid #ccc",
-        cursor: "pointer"
-      }}>
-        <div style={{
-          padding: "5px"
-        }}>You must file your 5500 by this Sunday</div>
-      </div>
-      <div style={{
-        borderBottom: "1px solid #ccc",
-        cursor: "pointer"
-      }}>
-        <div style={{
-          padding: "5px"
-        }}>You must file your 5500 by this Sunday</div>
-      </div>
-      <div style={{
-        borderBottom: "1px solid #ccc",
-        cursor: "pointer"
-      }}>
-        <div style={{
-          padding: "5px"
-        }}>You must file your 5500 by this Sunday</div>
-      </div>
-      <div style={{
-        borderBottom: "1px solid #ccc",
-        cursor: "pointer"
-      }}>
-        <div style={{
-          padding: "5px"
-        }}>You must file your 5500 by this Sunday</div>
-      </div>
-      <div style={{
-        borderBottom: "1px solid #ccc",
-        cursor: "pointer"
-      }}>
-        <div style={{
-          padding: "5px"
-        }}>You must file your 5500 by this Sunday</div>
-      </div>
-    </div>
-  )
-}
+var TaskStore = require('../../stores/TaskStore');
 
 var Notifications = React.createClass({
+  getInitialState: function () {
+    return {
+      tasks: [],
+    }
+  },
+
+  componentWillMount: function () {
+    TaskStore.get(function (tasks) {
+      var today = new Date();
+      tasks = tasks.filter(function (task) {
+        var dateDue = new Date(task.dateDue)
+        return (
+          dateDue <= today
+          && task.status === "In Progress"
+        );
+      });
+      var state = this.state;
+      state.tasks = tasks;
+      this.setState(state);
+    }.bind(this));
+  },
+
   render: function() {
     return (
       <div>
@@ -143,7 +62,7 @@ var Notifications = React.createClass({
               maxHeight: "400px",
               overflowY: "auto"
             }}>
-              {getNotificationItems()}
+              {this.getNotificationItems()}
             </div>
           </div>
         </div>
@@ -182,14 +101,39 @@ var Notifications = React.createClass({
               maxHeight: "400px",
               overflowY: "auto"
             }}>
-              {getNotificationItems()}
+              {this.getNotificationItems()}
             </div>
           </div>
           <div className="col-lg-2 hidden-md"/>
         </div>
       </div>
     )
-  }
+  },
+
+  getNotificationItems: function () {
+    return this.state.tasks.map(function (task) {
+      var handleClick_Open = function () {
+        browserHistory.push("/?action=open-task&id=" + task._id);
+      };
+
+      return (
+        <div
+          onClick={handleClick_Open}
+          style={{
+            borderBottom: "1px solid #ccc",
+            cursor: "pointer"
+          }}>
+          <div
+            style={{
+              padding: "5px"
+            }}>
+            {"A task is past due: "}
+            {task.name}
+          </div>
+        </div>
+      )
+    });
+  },
 });
 
 module.exports = Notifications;

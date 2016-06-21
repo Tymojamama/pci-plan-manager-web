@@ -22,7 +22,13 @@ var Feed = React.createClass({
   componentWillMount: function() {
     TaskStore.get(function(tasks) {
       var state = this.state;
-      state.tasks = tasks;
+      state.tasks = tasks.sort(function (a, b) {
+        var key1 = new Date(a.dateDue);
+        var key2 = new Date(b.dateDue);
+        if (key1 < key2) { return -1; }
+        else if (key1 == key2) { return 0; }
+        else { return 1; }
+      });
       this.setState(state);
       TaskCategoryStore.get(function(taskCategories) {
         var state = this.state;
@@ -134,7 +140,13 @@ var Feed = React.createClass({
         }
 
         var state = this.state;
-        state.tasks = result;
+        state.tasks = result.sort(function (a, b) {
+          var key1 = new Date(a.dateDue);
+          var key2 = new Date(b.dateDue);
+          if (key1 < key2) { return -1; }
+          else if (key1 == key2) { return 0; }
+          else { return 1; }
+        });
         this.setState(state);
 
         if (!_tasks) {
@@ -170,7 +182,13 @@ var Feed = React.createClass({
           }
         });
       }
-      state.tasks = result;
+      state.tasks = result.sort(function (a, b) {
+        var key1 = new Date(a.dateDue);
+        var key2 = new Date(b.dateDue);
+        if (key1 < key2) { return -1; }
+        else if (key1 == key2) { return 0; }
+        else { return 1; }
+      });
       state.search = value;
       this.setState(state);
 

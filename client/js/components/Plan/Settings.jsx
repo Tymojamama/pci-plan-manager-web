@@ -51,7 +51,7 @@ var PlanSettings = React.createClass({
         </div>
         <div className="row">
           <Label
-            label={"Name"}
+            label={"Plan Name"}
             isRequired={true} />
           <Input
             type={"text"}
@@ -81,7 +81,7 @@ var PlanSettings = React.createClass({
         </div>
         <div className="row">
           <Label
-            label={"Plan Start Date"}
+            label={"Plan Year Start Date"}
             isRequired={false} />
           <Input
             type={"text"}
@@ -91,17 +91,33 @@ var PlanSettings = React.createClass({
         </div>
         <div className="row">
           <Label
-            label={"Participant Entry Frequency"}
+            label={"Is the Plan subject to ERISA?"}
             isRequired={false} />
           <Select
-            options={["Annual","Semi-annual","Quarterly"]}
+            options={["true","false"]}
+            attribute={"isSubjectToErisa"}
+            value={this.plan.isSubjectToErisa}
+            onChange={this.handleChange_Attribute} />
+        </div>
+        <div className="row">
+          <Label
+            label={"What are the Plan's Entry Dates?"}
+            isRequired={false} />
+          <Select
+            options={[
+              "Annual",
+              "Semi-annual", {
+                label:"At least Quarterly",
+                value:"Quarterly"
+              }
+            ]}
             attribute={"participantEntryFrequency"}
             value={this.plan.participantEntryFrequency}
             onChange={this.handleChange_Attribute} />
         </div>
         <div className="row">
           <Label
-            label={"Has Employer Contributions"}
+            label={"Does the Plan allow Employer Contributions?"}
             isRequired={false} />
           <Select
             options={["true","false"]}
@@ -111,7 +127,7 @@ var PlanSettings = React.createClass({
         </div>
         <div className="row">
           <Label
-            label={"Employer Contributions Schedule"}
+            label={"When are the Employer Contributions made?"}
             isRequired={false} />
           <Select
             options={["Pay Period","Plan Year"]}
@@ -121,7 +137,7 @@ var PlanSettings = React.createClass({
         </div>
         <div className="row">
           <Label
-            label={"Is Safe Harbor Plan"}
+            label={"Is this a Safe Harbor Plan?"}
             isRequired={false} />
           <Select
             options={["true","false"]}
@@ -131,7 +147,7 @@ var PlanSettings = React.createClass({
         </div>
         <div className="row">
           <Label
-            label={"Allows Loans"}
+            label={"Does the Plan allow loans?"}
             isRequired={false} />
           <Select
             options={["true","false"]}
@@ -141,7 +157,7 @@ var PlanSettings = React.createClass({
         </div>
         <div className="row">
           <Label
-            label={"Is Auditable"}
+            label={"Is the Plan subject to an annual Audit?"}
             isRequired={false} />
           <Select
             options={["true","false"]}
@@ -151,7 +167,7 @@ var PlanSettings = React.createClass({
         </div>
         <div className="row">
           <Label
-            label={"Is Investment Delegated"}
+            label={"Has investment oversight been Delegated?"}
             isRequired={false} />
           <Select
             options={["true","false"]}
@@ -161,7 +177,7 @@ var PlanSettings = React.createClass({
         </div>
         <div className="row">
           <Label
-            label={"Investment Delegation Type"}
+            label={"What type of Investment Delegation is used?"}
             isRequired={false} />
           <Select
             options={["3(21)","3(38)"]}
@@ -171,7 +187,7 @@ var PlanSettings = React.createClass({
         </div>
         <div className="row">
           <Label
-            label={"Uses Automatic Enrollment"}
+            label={"Does the Plan use Automatic Enrollment?"}
             isRequired={false} />
           <Select
             options={["true","false"]}
@@ -181,7 +197,7 @@ var PlanSettings = React.createClass({
         </div>
         <div className="row">
           <Label
-            label={"Uses Automatic Escalation"}
+            label={"Does the Plan use Automatic Escalation?"}
             isRequired={false} />
           <Select
             options={["true","false"]}
@@ -191,7 +207,7 @@ var PlanSettings = React.createClass({
         </div>
         <div className="row">
           <Label
-            label={"Uses QDIA Fund"}
+            label={"Does the Plan use a QDIA Fund?"}
             isRequired={false} />
           <Select
             options={["true","false"]}

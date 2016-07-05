@@ -7,6 +7,7 @@ var Route = require('react-router').Route;
 var browserHistory = require('react-router').browserHistory;
 var IndexRoute = require('react-router').IndexRoute;
 
+var Checklist = require('./components/Checklist/Page.jsx');
 var Documents = require('./components/Documents/Page.jsx');
 var Document = require('./components/Document/Page.jsx');
 var Meeting = require('./components/Meeting/Page.jsx');
@@ -27,6 +28,8 @@ var PlanProfile = require('./components/Plan/Profile.jsx');
 var PlanInfo = require('./components/Plan/Info.jsx');
 var PlanTerms = require('./components/Plan/Terms.jsx');
 var PlanDocuments = require('./components/Plan/Documents.jsx');
+var PlanChecklists = require('./components/Plan/Checklists.jsx');
+var PlanUsers = require('./components/Plan/Users.jsx');
 var PlanSettings = require('./components/Plan/Settings.jsx');
 var ActionSettings = require('./components/Settings/Actions.jsx');
 var UserSettings = require('./components/Settings/UserSettings.jsx');
@@ -57,7 +60,7 @@ var MobileNavigation = React.createClass({
       paddingTop: "60px"
     };
     return (
-      <div style={headerSpacingStyle} className="col-lg-8 col-md-12 col-sm-12 col-xs-12 col-centered">
+      <div style={headerSpacingStyle} className="col-lg-8 col-xs-12 col-centered">
         <Navigation/>
       </div>
     );
@@ -79,6 +82,7 @@ var App = React.createClass({
 var Routes = (
   <Route path="/" component={App}>
     <IndexRoute component={Home} />
+    <Route path="checklist/:id" component={Checklist} />
     <Route path="document" component={Documents} />
     <Route path="meeting/create" component={Meeting} />
     <Route path="meeting/:id" component={Meeting} />
@@ -97,6 +101,8 @@ var Routes = (
       <Route path="info" component={PlanInfo} />
       <Route path="terms" component={PlanTerms} />
       <Route path="documents" component={PlanDocuments} />
+      <Route path="checklists" component={PlanChecklists} />
+      <Route path="users" component={PlanUsers} />
       <Route path="settings" component={PlanSettings} />
     </Route>
     <Route path="home" component={Home}/>
